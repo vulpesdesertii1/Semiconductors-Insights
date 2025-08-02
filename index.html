@@ -23,29 +23,78 @@
     - All choices prioritize clarity, interactivity, and direct representation of the report's key themes and data points. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #ffffff; color: #ffffff; }
-        .bg-primary { background-color: #0f0f0f; }  /* fondo general */
-        .bg-secondary { background-color: #1a1a1a; }  /* secciones o tarjetas */
-        .text-main { color: #ffffff; }
-        .text-gray-600 { color: #d1d5db; } /* textos aclarados */
-        .text-gray-500 { color: #9ca3af; }
-        .border-gray-200 { border-color: #2d2d2d; }
-        .text-accent { color: #4A908A; }
-        .border-accent { border-color: #4A908A; }
-        .bg-accent { background-color: #4A908A; }
-        .bg-accent-light { background-color: #E0F2F1; }
-        .bg-highlight { background-color: #C0A062; }
-        .text-highlight { color: #C0A062; }
-        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; }
-        .nav-link.active, .nav-link:hover { color: #4A908A; border-bottom-color: #4A908A; }
-        .tab.active { background-color: #4A908A; color: white; }
-        .tab { transition: background-color 0.3s, color 0.3s; }
-        .fade-in { animation: fadeIn 0.8s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        section { scroll-margin-top: 80px; }
-        .chart-container { position: relative; width: 100%; max-width: 900px; margin-left: auto; margin-right: auto; height: 350px; max-height: 40vh; }
-        @media (min-width: 768px) { .chart-container { height: 400px; } }
-    </style>
+    body {
+        font-family: 'Inter', sans-serif;
+        scroll-behavior: smooth;
+        background-color: #000000;  /* fondo negro absoluto */
+        color: #ffffff;             /* texto blanco por defecto */
+    }
+
+    .bg-primary { background-color: #000000; }     /* fondo general */
+    .bg-secondary { background-color: #111111; }   /* tarjetas y secciones */
+    .bg-accent { background-color: #4A908A; }      /* verde petróleo */
+    .bg-accent-light { background-color: #163c39; }/* versión oscura del acento para no romper */
+    .bg-highlight { background-color: #C0A062; }   /* dorado */
+
+    .text-main { color: #ffffff; }
+    .text-gray-600 { color: #cccccc; }
+    .text-gray-500 { color: #999999; }
+    .text-muted { color: #aaaaaa; }
+    .text-accent { color: #4A908A; }
+    .text-highlight { color: #FACC15; }
+
+    .border-accent { border-color: #4A908A; }
+    .border-gray-200 { border-color: #2d2d2d; }
+
+    .nav-link {
+        transition: color 0.3s, border-bottom-color 0.3s;
+        color: #cccccc;
+        border-bottom: 2px solid transparent;
+    }
+    .nav-link.active,
+    .nav-link:hover {
+        color: #4A908A;
+        border-bottom-color: #4A908A;
+    }
+
+    .tab.active {
+        background-color: #4A908A;
+        color: white;
+    }
+    .tab {
+        transition: background-color 0.3s, color 0.3s;
+        background-color: #222222;
+        color: #ffffff;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.8s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    section {
+        scroll-margin-top: 80px;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 40vh;
+    }
+
+    @media (min-width: 768px) {
+        .chart-container { height: 400px; }
+    }
+</style>
+
 </head>
 <body class="bg-primary text-main">
 
