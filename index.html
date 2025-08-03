@@ -23,44 +23,51 @@
     - All choices prioritize clarity, interactivity, and direct representation of the report's key themes and data points. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-    body {
-        font-family: 'Inter', sans-serif;
-        scroll-behavior: smooth;
-        background-color: #000000;  /* fondo negro absoluto */
-        color: #ffffff;             /* texto blanco por defecto */
+    :root {
+    --color-electric-blue: #040DBF;
+    --color-midnight-blue: #010326;
+    --color-royal-blue: #032CA6;
+    --color-sky-blue: #1F64BF;
+    --color-light: #F2F2F2;
+
+    --font-main: 'Inter', sans-serif;
     }
 
-    .bg-primary { background-color: #000000; }     /* fondo general */
-    .bg-secondary { background-color: #111111; }   /* tarjetas y secciones */
-    .bg-accent { background-color: #4A908A; }      /* verde petróleo */
-    .bg-accent-light { background-color: #163c39; }/* versión oscura del acento para no romper */
-    .bg-highlight { background-color: #C0A062; }   /* dorado */
+    body {
+    font-family: var(--font-main);
+    background-color: var(--color-light);
+    color: var(--color-midnight-blue);
+    scroll-behavior: smooth;
+    }
 
-    .text-main { color: #ffffff; }
-    .text-gray-600 { color: #cccccc; }
-    .text-gray-500 { color: #999999; }
-    .text-muted { color: #aaaaaa; }
-    .text-accent { color: #4A908A; }
-    .text-highlight { color: #FACC15; }
+    .bg-primary { background-color: var(--color-light); }
+    .bg-secondary { background-color: white; }
+    .text-main { color: var(--color-midnight-blue); }
+    .text-accent { color: var(--color-electric-blue); }
+    .border-accent { border-color: var(--color-electric-blue); }
 
-    .border-accent { border-color: #4A908A; }
-    .border-gray-200 { border-color: #2d2d2d; }
+    .bg-accent { background-color: var(--color-electric-blue); color: white; }
+    .bg-accent-light { background-color: rgba(4, 13, 191, 0.05); }
+
+    .bg-highlight { background-color: var(--color-royal-blue); }
+    .text-highlight { color: var(--color-royal-blue); }
 
     .nav-link {
         transition: color 0.3s, border-bottom-color 0.3s;
-        color: #cccccc;
-        border-bottom: 2px solid transparent;
+        font-weight: 500;
     }
+
     .nav-link.active,
     .nav-link:hover {
-        color: #4A908A;
-        border-bottom-color: #4A908A;
+        color: var(--color-electric-blue);
+        border-bottom-color: var(--color-electric-blue);
     }
 
     .tab.active {
-        background-color: #4A908A;
+        background-color: var(--color-electric-blue);
         color: white;
     }
+
     .tab {
         transition: background-color 0.3s, color 0.3s;
         background-color: #222222;
@@ -496,8 +503,8 @@
                     label: 'Market Revenue (in Billions USD)',
                     data: [702.44, 746.14, 792.77, 842.54, 895.68, 950.97],
                     fill: true,
-                    borderColor: '#4A908A',
-                    backgroundColor: 'rgba(74, 144, 138, 0.1)',
+                    borderColor: '#9373D9',
+                    backgroundColor: 'rgba(147, 115, 217, 0.2)',
                     tension: 0.4
                 }]
             };
@@ -549,8 +556,13 @@
                         datasets: [{
                             label: financialData.labels[metric],
                             data: financialData[metric],
-                            backgroundColor: '#4A908A',
-                            borderColor: '#3B7A74',
+                            backgroundColor: (ctx) => {
+                            const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient.addColorStop(0, '#A68A56');
+                            gradient.addColorStop(1, '#9373D9');
+                            return gradient;
+                            },
+                            borderColor: '#0D0126',
                             borderWidth: 1,
                             borderRadius: 4,
                         }]
