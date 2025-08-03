@@ -29,7 +29,7 @@
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <div class="flex-shrink-0">
-        <h1 class="text-xl font-bold text-accent">Semiconductor Insights</h1>
+        <a href="/index.html" class="text-xl font-bold text-accent">Semiconductor Insights</a>
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
@@ -63,6 +63,16 @@
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    button.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  });
+</script>
 
     <main class="pt-20">
         <!-- Hero Section -->
