@@ -597,12 +597,20 @@
 
             const sectorTabs = document.querySelectorAll('.sector-tab');
             sectorTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    sectorTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    renderSectorContent(tab.dataset.sector);
-                });
+            tab.addEventListener('click', function () {
+            sectorTabs.forEach(t => {
+            t.classList.remove('active');
+            t.classList.remove('bg-accent', 'text-white');
+            t.classList.add('bg-secondary', 'text-main');
             });
+
+            this.classList.add('active', 'bg-accent', 'text-white');
+            this.classList.remove('bg-secondary', 'text-main');
+
+            renderSectorContent(this.dataset.sector);
+        });
+    });
+
 
             const marketGrowthCtx = document.getElementById('marketGrowthChart').getContext('2d');
             new Chart(marketGrowthCtx, { type: 'line', data: marketGrowthData, options: chartStyles });
