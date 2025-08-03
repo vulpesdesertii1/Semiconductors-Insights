@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda – Javier &amp; Maite</title>
+    <!-- Tailwind CSS CDN for layout utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a soft, romantic colour palette using CSS variables */
+        :root {
+            --color-bg:      #EBEBEB; /* fondo marfil cálido */
+            --color-accent: #f4d4d4; /* rosa empolvado para acentos */
+            --color-secondary: #b5836f; /* tono terracota suave para botones */
+            --color-text:   #4e3d31; /* marrón grisáceo para texto */
+            --color-heading: #7c5943; /* marrón profundo para titulares */
+        }
+
+        /* Styles for the blurred background header */
+  .header-bg {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .header-bg::before {
+    content: '';
+    background-image: url('WhatsApp Image 2025-07-27 at 16.56.18.jpeg'); /* Cambia esta ruta si usas otra imagen */
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    filter: blur(4px) brightness(0.8); /* lighten the header background */
+    z-index: 0;
+  }
+
+  .header-overlay {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: 2rem;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+        body {
+            font-family: 'Inter', sans‑serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-heading);
+            margin: 0;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            background-image: url('img/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background-color: var(--color-secondary);
+            color: #fff;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #9c6955;
+        }
+
+        /* Countdown section */
+        .countdown-section {
+            background-color: var(--color-accent);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .countdown-items {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            min-width: 80px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .countdown-item span:first-child {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-heading);
+        }
+
+        .countdown-item span:last-child {
+            font-size: 0.9rem;
+            color: var(--color-secondary);
+        }
+
+        /* Details section */
+        .details-section {
+            padding: 4rem 1rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .detail-card {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0);
+            border: 1px solid var(--color-accent);
+        }
+
+        .detail-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-secondary);
+            color: #fff;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .map-link:hover {
+            background-color: #9c6955;
+        }
+
+        /* Gallery section */
+        .gallery-section {
+            background-color: var(--color-accent);
+            padding: 4rem 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            /* Use auto-fit so cards wrap nicely and adjust the min width for better mobile support */
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Floating message box for feedback notifications */
+        .message-box {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--color-secondary);
+            color: var(--color-bg);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        /* message-box element removed from CSS: it will be placed in HTML */
+        
+        /*  */
+        footer {
+            background-color: var(--color-secondary);
+            color: var(--color-bg);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Responsive adjustments for mobile screens */
+        @media (max-width: 768px) {
+            /* Adjust hero section height and typography for small screens */
+            .hero {
+                height: 70vh;
+                padding: 0 1rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            /* Allow countdown items to wrap and reduce gaps */
+            .countdown-items {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            .countdown-item {
+                flex: 1 1 100px;
+                min-width: 70px;
+            }
+
+            /* Reduce section padding on small screens */
+            .details-section,
+            .gallery-section {
+                padding: 3rem 1rem;
+            }
+
+            /* Reduce gallery image height for mobile */
+            .gallery-grid img {
+                height: 200px;
+            }
+
+            /* Adjust gallery grid min width on smaller screens */
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero / Header -->
+    <header class="header-bg">
+  <div class="header-overlay">
+    <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold">Javier & Maite</h1>
+    <p class="text-2xl sm:text-3xl md:text-4xl font-light">¡Nos casamos!</p>
+    <p class="text-xl sm:text-2xl md:text-3xl font-semibold">7 de noviembre de 2025</p>
+
+    <div id="countdown" class="mt-8 flex justify-center mb-10">
+      <div class="countdown-item">
+        <span id="days" class="text-shadow-lg">00</span><span>Días</span>
+      </div>
+      <div class="countdown-item">
+        <span id="hours" class="text-shadow-lg">00</span><span>Horas</span>
+      </div>
+      <div class="countdown-item">
+        <span id="minutes" class="text-shadow-lg">00</span><span>Minutos</span>
+      </div>
+      <div class="countdown-item">
+        <span id="seconds" class="text-shadow-lg">00</span><span>Segundos</span>
+      </div>
+    </div>
+  </div>
+</header>
+    <!-- Floating message for copy notifications -->
+    <div id="message-box" class="message-box"></div>
+
+
+    <!-- Countdown section -->
+    <section class="countdown-section">
+        <h2 class="text-3xl font-bold">Cuenta atrás</h2>
+        <div class="countdown-items">
+            <div class="countdown-item">
+                <span id="days">0</span>
+                <span>Días</span>
+            </div>
+            <div class="countdown-item">
+                <span id="hours">0</span>
+                <span>Horas</span>
+            </div>
+            <div class="countdown-item">
+                <span id="minutes">0</span>
+                <span>Minutos</span>
+            </div>
+            <div class="countdown-item">
+                <span id="seconds">0</span>
+                <span>Segundos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details section -->
+    <section id="detalles" class="details-section">
+        <h2 class="text-3xl font-bold text-center">Detalles de nuestra boda</h2>
+        <div class="details-grid mt-8">
+            <div class="detail-card">
+                <h3 class="font-semibold">Ceremonia y Banquete</h3>
+                <p>Lugar: Finca la Ribera, Aranjuez</p>
+                <p>Hora: 19:00</p>
+            </div>
+            <div class="detail-card">
+                <h3 class="font-semibold">Código de vestimenta</h3>
+                <p>Antes muerta que sencilla.</p>
+            </div>
+            <div class="detail-card">
+                <h3 class="font-semibold">Información adicional</h3>
+                <p>Traed hambre y ganas de fiesta.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="map-link" href="https://www.google.com/maps/place/Finca+de+la+Ribera+-+INbodas/@40.0594147,-3.6171094,17z/data=!3m1!4b1!4m6!3m5!1s0xd42051aded0643f:0x8551796d79a6894e!8m2!3d40.0594106!4d-3.6145345!16s%2Fg%2F11bt_jwhw3?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D">Abrir en Google Maps</a>
+        </div>
+    </section>
+
+    <!-- Gallery section -->
+    <section class="gallery-section">
+        <h2 class="text-3xl font-bold text-center mb-8">Nuestra historia</h2>
+        <div class="gallery-grid">
+            <img src="img/story1.jpg" alt="Historia 1">
+            <img src="img/story2.jpg" alt="Historia 2">
+            <img src="img/story3.jpg" alt="Historia 3">
+            <img src="img/story4.jpg" alt="Historia 4">
+            <img src="img/story5.jpg" alt="Historia 5">
+            <img src="img/story6.jpg" alt="Historia 6">
+        </div>
+    </section>
+
+    <section id="viajes" class="text-center my-20 px-4 fade-in-up">
+      <h2 class="section-title">Elige nuestro viaje soñado</h2>
+      <p class="text-lg sm:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
+        Puedes contribuir a nuestra luna de miel escogiendo uno de estos destinos ✈️<br>
+        ¡Nos haría muchísima ilusión vivir cualquiera de estas aventuras!
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    
+        <!-- Japón -->
+        <div class="card text-left">
+          <img src="viaje 1.jpg" alt="Viaje a Japón" class="w-full h-48 object-cover rounded-lg mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Japón 🇯🇵</h3>
+          <p class="text-md text-gray-700">
+            Un recorrido por templos antiguos, trenes bala, sakura en flor y cultura milenaria. Japón sería un viaje lleno de contraste, belleza y aprendizaje.
+          </p>
+        </div>
+
+        <!-- Praga -->
+        <div class="card text-left">
+          <img src="viaje 2.jpg" alt="Viaje a Praga" class="w-full h-48 object-cover rounded-lg mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Praga 🇨🇿</h3>
+          <p class="text-md text-gray-700">
+            La ciudad de las cien torres nos espera con su aire medieval, su encanto bohemio y sus paseos mágicos por el Moldava al atardecer.
+          </p>
+        </div>
+
+        <!-- Venecia -->
+        <div class="card text-left">
+          <img src="viaje 3.jpg" alt="Viaje a Venecia" class="w-full h-48 object-cover rounded-lg mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Venecia 🇮🇹</h3>
+          <p class="text-md text-gray-700">
+            Navegar por canales, perderse entre callejones y disfrutar de un atardecer en góndola. Venecia es pura poesía para una luna de miel romántica.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="confirmacion" class="text-center my-20 px-4 fade-in-up">
+      <h2 class="section-title">Luna de Miel</h2>
+      <p class="text-lg sm:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
+        Queremos que nos ayudéis a elegir el destino de nuestra luna de miel. 💍<br>
+        Por favor, rellena el siguiente formulario para elegir uno de los planes presentados.
+      </p>
+
+      <div class="card max-w-4xl mx-auto p-6 sm:p-8">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSc1RDBMJTCeFEyB0Ba6d2uDXvar3nSSOcO8v-77Whs0fIWBVQ/viewform?embedded=true"
+          width="100%" height="650"
+          frameborder="0" marginheight="0" marginwidth="0"
+          class="google-form-iframe rounded-lg">
+          Cargando…
+        </iframe>
+        <p class="text-sm text-gray-600 mt-4">
+            *(No olvides pulsar "Enviar" al final del formulario para registrar tu respuesta.)*
+        </p>
+        </div>
+    </section>
+
+    <section id="pago" class="text-center my-20 px-4 fade-in-up">
+  <h2 class="section-title">Contribución a la Boda</h2>
+  <p class="text-lg sm:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
+    Si deseas hacernos un regalo, puedes realizar una transferencia bancaria 💌<br>
+    ¡Gracias por formar parte de este momento tan especial!
+  </p>
+
+  <div class="card max-w-2xl mx-auto p-6 sm:p-8 text-left">
+    <p class="text-lg mb-4"><strong>💳 IBAN:</strong>
+      <span id="iban" data-iban="ES0400495177652016335582">
+        ES04 0049 5177 6520 1633 5582
+      </span>
+    </p>
+    <p class="text-lg mb-4"><strong>👤 Titular:</strong> Javier & Maite</p>
+    <p class="text-lg mb-6"><strong>📝 Concepto:</strong> Tu nombre completo</p>
+
+    <!-- Botón visualmente atractivo -->
+    <div class="text-center">
+  <button onclick="copyIBAN(event)" id="copy-button"
+    class="mt-4 mx-auto inline-flex items-center gap-2 px-6 py-3 text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 font-semibold rounded-full shadow-lg transition-all duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 16h.01M12 16h.01M16 16h.01M9 20h6a2 2 0 002-2V8a2 2 0 00-2-2H9a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+    Copiar IBAN
+  </button>
+</div>
+
+
+    <p class="text-md text-gray-600 mt-6">
+      *Por favor, incluye tu nombre completo como concepto para poder agradecerte correctamente.*
+    </p>
+
+    <div class="section-image-container mt-6">
+      <img src="img/regalo.jpg" alt="Imagen decorativa sobre regalo" class="section-image">
+    </div>
+  </div>
+</section>
+
+<!-- Script para copiar IBAN con feedback -->
+<script>
+  function copyIBAN(event) {
+    const ibanSpan = document.getElementById("iban");
+    const ibanClean = ibanSpan.getAttribute("data-iban");
+    const button = event.target.closest("button");
+
+    navigator.clipboard.writeText(ibanClean)
+      .then(() => {
+        // Mostrar mensaje (si tienes message-box)
+        const msgBox = document.getElementById('message-box');
+        if (msgBox) {
+          msgBox.textContent = "IBAN copiado correctamente ✅";
+          msgBox.style.display = 'block';
+          setTimeout(() => { msgBox.style.display = 'none'; }, 2500);
+        }
+
+        // Cambiar texto del botón temporalmente
+        const original = button.innerHTML;
+        button.innerHTML = '✅ Copiado';
+        button.classList.remove('bg-amber-600');
+        button.classList.add('bg-green-600');
+
+        setTimeout(() => {
+          button.innerHTML = original;
+          button.classList.remove('bg-green-600');
+          button.classList.add('bg-amber-600');
+        }, 2000);
+      })
+      .catch(() => {
+        alert("No se pudo copiar el IBAN automáticamente");
+      });
+  }
+</script>
+
+
+
+    <!-- Footer -->
+    <footer>
+        Gracias por acompañarnos en este día tan especial.
+    </footer>
+
+    <!-- Countdown script -->
+    <script>
+    // Countdown timer to wedding date (7 de noviembre de 2025, 19:00)
+    function updateCountdown() {
+        const weddingDate = new Date('2025-11-07T19:00:00').getTime();
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance < 0) {
+            document.getElementById('days').textContent = '0';
+            document.getElementById('hours').textContent = '0';
+            document.getElementById('minutes').textContent = '0';
+            document.getElementById('seconds').textContent = '0';
+            return;
+        }
+        const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent    = days;
+        document.getElementById('hours').textContent   = hours < 10 ? '0' + hours : hours;
+        document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
