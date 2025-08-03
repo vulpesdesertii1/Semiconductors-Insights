@@ -23,6 +23,14 @@
     - All choices prioritize clarity, interactivity, and direct representation of the report's key themes and data points. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+    :root {
+      --color-deep-purple: #340773;
+      --color-dark-purple: #150140;
+      --color-black-purple: #0D0126;
+      --color-soft-lavender: #9373D9;
+      --color-warm-gold: #A68A56;
+    }
+
     body {
         font-family: 'Inter', sans-serif;
         scroll-behavior: smooth;
@@ -30,37 +38,34 @@
         color: #ffffff;             /* texto blanco por defecto */
     }
 
-    .bg-primary { background-color: #000000; }     /* fondo general */
-    .bg-secondary { background-color: #111111; }   /* tarjetas y secciones */
-    .bg-accent { background-color: #4A908A; }      /* verde petróleo */
-    .bg-accent-light { background-color: #163c39; }/* versión oscura del acento para no romper */
-    .bg-highlight { background-color: #C0A062; }   /* dorado */
+    body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    background-color: var(--color-black-purple);
+    color: #ffffff;
+}
 
-    .text-main { color: #ffffff; }
-    .text-gray-600 { color: #cccccc; }
-    .text-gray-500 { color: #999999; }
-    .text-muted { color: #aaaaaa; }
-    .text-accent { color: #4A908A; }
-    .text-highlight { color: #FACC15; }
+.bg-primary { background-color: var(--color-dark-purple); }
+.bg-secondary { background-color: var(--color-deep-purple); }
+.text-main { color: var(--color-soft-lavender); }
 
-    .border-accent { border-color: #4A908A; }
-    .border-gray-200 { border-color: #2d2d2d; }
+.text-accent,
+.border-accent { color: var(--color-soft-lavender); border-color: var(--color-soft-lavender); }
+.bg-accent { background-color: var(--color-soft-lavender); }
+.bg-accent-light { background-color: rgba(147, 115, 217, 0.2); }
 
-    .nav-link {
-        transition: color 0.3s, border-bottom-color 0.3s;
-        color: #cccccc;
-        border-bottom: 2px solid transparent;
-    }
-    .nav-link.active,
-    .nav-link:hover {
-        color: #4A908A;
-        border-bottom-color: #4A908A;
-    }
+.bg-highlight,
+.text-highlight { background-color: var(--color-warm-gold); color: var(--color-warm-gold); }
 
-    .tab.active {
-        background-color: #4A908A;
-        color: white;
-    }
+.nav-link { transition: color 0.3s, border-bottom-color 0.3s; }
+.nav-link.active,
+.nav-link:hover { color: var(--color-soft-lavender); border-bottom-color: var(--color-soft-lavender); }
+
+.tab.active {
+  background-color: var(--color-soft-lavender);
+  color: white;
+}
+
     .tab {
         transition: background-color 0.3s, color 0.3s;
         background-color: #222222;
