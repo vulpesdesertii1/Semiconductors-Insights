@@ -4,107 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neuromorphic Computing</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 1. Preconexión a Google Fonts (mejora carga) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 2. Fuente principal Inter -->
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+    />
+
+    <!-- 3. Tailwind (primero para que lo puedas sobrescribir después) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --color-electric-blue: #5C67F2;
-            --color-light-background: #F8F8F8; /* Light background for body */
-            --color-dark-background: #111827; /* Dark background for specific sections */
-            --color-royal-blue: #3A47FF;
-            --color-sky-blue: #87A3E2;
-            --color-light-text: #FFFFFF; /* Pure white text for dark sections */
-            --color-dark-text: #333333; /* Dark text for light sections */
-            --color-light-card: #FFFFFF; /* Light card background */
-            --color-dark-card: #1E293B; /* Dark card background */
 
-            --font-main: 'Inter', sans-serif;
-        }
+    <!-- 4. Tu CSS personalizado (después de Tailwind y Google Fonts) -->
+    <link rel="stylesheet" href="style.css" />
 
-        body {
-            font-family: var(--font-main);
-            background-color: var(--color-light-background);
-            color: var(--color-dark-text);
-            scroll-behavior: smooth;
-        }
-
-        .bg-primary { background-color: var(--color-light-background); }
-        .bg-secondary { background-color: var(--color-light-card); }
-        .bg-tertiary { background-color: var(--color-dark-background); }
-        .text-main { color: var(--color-dark-text); }
-        .text-on-dark { color: var(--color-light-text); }
-        .text-accent { color: var(--color-electric-blue); }
-        .border-accent { border-color: var(--color-electric-blue); }
-
-        .bg-accent { background-color: var(--color-electric-blue); color: var(--color-light-card); }
-        .bg-accent-light { background-color: rgba(92, 103, 242, 0.1); }
-
-        .bg-highlight { background-color: var(--color-royal-blue); }
-        .text-highlight { color: var(--color-royal-blue); }
-
-        .nav-link {
-            transition: color 0.3s, border-bottom-color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-link.active,
-        .nav-link:hover {
-            color: var(--color-electric-blue);
-            border-bottom-color: var(--color-electric-blue);
-        }
-
-        /* Custom style for the blurred navigation bar */
-        .nav-blur {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .tab {
-            transition: background-color 0.3s, color 0.3s;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .tab.active {
-            background-color: var(--color-electric-blue);
-            color: var(--color-dark-card);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease-in-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        section {
-            scroll-margin-top: 80px;
-        }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 40vh;
-        }
-
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        
-        .description-box {
-            min-height: 250px; /* Ensures the box doesn't jump on content change */
-        }
-    </style>
+    <!-- 5. Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
 </head>
 <body class="bg-primary text-main">
 
