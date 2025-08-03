@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Global Semiconductor Industry: An Interactive Analysis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Global Semiconductor Industry: An Interactive Analysis</title>
+
+  <!-- 1. Preconexión a Google Fonts (mejora carga) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- 2. Fuente principal Inter -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 3. Tailwind (primero para que lo puedas sobrescribir después) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- 4. Tu CSS personalizado (después de Tailwind y Google Fonts) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- 5. Chart.js para gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Tech Neutral -->
     <!-- Application Structure Plan: A thematic dashboard structure is used to provide a user-friendly, non-linear exploration experience. The application is divided into four main sections accessible via a sticky navigation bar: 'Market Snapshot' for a high-level economic overview, 'Industry Deep Dive' to explore key application sectors, 'Technology & Innovation' for technical advancements, and 'Global Ecosystem' for geopolitical and supply chain context. This structure was chosen over a linear report format to empower users to quickly access the information most relevant to them, making the dense content of the source report more digestible and engaging. Key interactions include tabbed content for sector analysis, dynamic chart updates for financial comparisons, and interactive cards for exploring the global landscape, all designed to facilitate understanding and synthesis of complex information. -->
     <!-- Visualization & Content Choices: 
@@ -22,7 +36,6 @@
     - LLM-powered Geopolitical Impact Analyzer: A text input and display area powered by the Gemini API (gemini-2.0-flash) to provide on-demand analysis of geopolitical events' impact on the semiconductor industry. This adds a layer of dynamic insight into global forces.
     - All choices prioritize clarity, interactivity, and direct representation of the report's key themes and data points. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-primary text-main">
 
