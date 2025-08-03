@@ -27,33 +27,37 @@
 
     <!-- Navigation Bar -->
     <nav class="bg-secondary/80 backdrop-blur-lg sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <a href="#" class="text-2xl font-bold text-accent">Semiconductor Insights</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#what-is-it" class="nav-link border-b-2 border-transparent hover:border-accent">What is it?</a>
-                <a href="#principles" class="nav-link border-b-2 border-transparent hover:border-accent">Principles</a>
-                <a href="#interactive-chart" class="nav-link border-b-2 border-transparent hover:border-accent">Properties</a>
-                <a href="#how-it-works" class="nav-link border-b-2 border-transparent hover:border-accent">How it works</a>
-                <a href="#scaling" class="nav-link border-b-2 border-transparent hover:border-accent">Scaling</a>
-                <a href="#applications" class="nav-link border-b-2 border-transparent hover:border-accent">Applications</a>
-                <a href="#challenges" class="nav-link border-b-2 border-transparent hover:border-accent">Challenges</a>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-accent">Semiconductor Insights</h1>
+            <<div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#what-is-it" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">What is it?</a>
+                <a href="#principles" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">Principles</a>
+                <a href="#interactive-chart" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">Properties</a>
+                <a href="#how-it-works" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">How it works</a>
+                <a href="#scaling" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">Scaling</a>
+                <a href="#applications" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">Applications</a>
+                <a href="#challenges" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">Challenges</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden p-2 text-accent focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+            <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-accent focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden nav-blur w-full">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <a href="#what-is-it" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">What is it?</a>
-                <a href="#principles" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Principles</a>
-                <a href="#interactive-chart" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Properties</a>
-                <a href="#how-it-works" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">How it works</a>
-                <a href="#scaling" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Scaling</a>
-                <a href="#applications" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Applications</a>
-                <a href="#challenges" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Challenges</a>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#what-is-it" class="nav-link block px-3 py-2 rounded-md text-base font-medium">What is it?</a>
+                <a href="#principles" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Principles</a>
+                <a href="#interactive-chart" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Properties</a>
+                <a href="#how-it-works" class="nav-link block px-3 py-2 rounded-md text-base font-medium">How it works</a>
+                <a href="#scaling" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Scaling</a>
+                <a href="#applications" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Applications</a>
+                <a href="#challenges" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Challenges</a>
             </div>
         </div>
     </nav>
