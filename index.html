@@ -63,15 +63,15 @@
         border-bottom-color: var(--color-electric-blue);
     }
 
-    .tab.active {
-        background-color: var(--color-electric-blue);
-        color: white;
-    }
-
     .tab {
-        transition: background-color 0.3s, color 0.3s;
-        background-color: #222222;
-        color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.tab.active {
+  background-color: var(--color-electric-blue);
+  color: white;
     }
 
     .fade-in {
@@ -273,11 +273,11 @@
             </div>
             <div class="bg-secondary rounded-lg shadow-lg p-6 fade-in">
                 <div class="mb-6 border-b border-gray-200">
-                    <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
-                        <button class="sector-tab tab active" data-sector="ai">AI & Machine Learning</button>
-                        <button class="sector-tab tab" data-sector="automotive">Automotive & EVs</button>
-                        <button class="sector-tab tab" data-sector="cloud">Cloud & Data Centers</button>
-                        <button class="sector-tab tab" data-sector="telecom">Telecom & 5G</button>
+                    <nav class="flex flex-wrap gap-3" aria-label="Tabs">
+                        <button class="sector-tab tab active px-4 py-2 rounded-md font-medium text-sm bg-accent text-white" data-sector="ai">AI & Machine Learning</button>
+                        <button class="sector-tab tab px-4 py-2 rounded-md font-medium text-sm bg-secondary text-main hover:bg-accent-light" data-sector="automotive">Automotive & EVs</button>
+                        <button class="sector-tab tab px-4 py-2 rounded-md font-medium text-sm bg-secondary text-main hover:bg-accent-light" data-sector="cloud">Cloud & Data Centers</button>
+                        <button class="sector-tab tab px-4 py-2 rounded-md font-medium text-sm bg-secondary text-main hover:bg-accent-light" data-sector="telecom">Telecom & 5G</button>
                     </nav>
                 </div>
                 <div id="sector-content" class="min-h-[300px]">
