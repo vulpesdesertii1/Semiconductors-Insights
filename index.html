@@ -428,23 +428,55 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const chartStyles = {
-                plugins: {
-                    legend: { labels: { color: '#374151' } }
+    plugins: {
+        legend: {
+            labels: {
+                color: '#E0D6F9', // suave y elegante
+                font: {
+                    family: 'Inter',
+                    weight: '600'
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#E5E7EB' },
-                        ticks: { color: '#6B7280' }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#6B7280' }
-                    }
-                },
-                maintainAspectRatio: false,
-                responsive: true
-            };
+                boxWidth: 14,
+                padding: 15
+            }
+        },
+        tooltip: {
+            backgroundColor: '#0D0126',
+            titleColor: '#9373D9',
+            bodyColor: '#FFFFFF',
+            borderColor: '#9373D9',
+            borderWidth: 1,
+            cornerRadius: 6,
+            padding: 12
+        }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            grid: { color: '#261652' },
+            ticks: {
+                color: '#9373D9',
+                font: {
+                    family: 'Inter',
+                    size: 12
+                }
+            }
+        },
+        x: {
+            grid: { display: false },
+            ticks: {
+                color: '#9373D9',
+                font: {
+                    family: 'Inter',
+                    size: 12
+                }
+            }
+        }
+    },
+    maintainAspectRatio: false,
+    responsive: true
+};
+
             
             const financialData = {
                 companies: ['NVIDIA', 'TSMC', 'Broadcom', 'Samsung', 'Intel', 'Qualcomm'],
