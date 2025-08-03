@@ -1,114 +1,629 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neuromorphic Computing – Deep Dive</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuromorphic Computing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-primary text-main font-sans">
-    <header class="bg-secondary shadow-md py-4 px-6 sticky top-0 z-50">
-      <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-accent">Semiconductor Insights</h1>
-        <a
-          href="index.html#neuromorphic"
-          class="text-sm text-accent hover:underline"
-        >
-          ← Back to Overview
-        </a>
-      </div>
-    </header>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --color-electric-blue: #5C67F2;
+            --color-light-background: #F8F8F8; /* Light background for body */
+            --color-dark-background: #111827; /* Dark background for specific sections */
+            --color-royal-blue: #3A47FF;
+            --color-sky-blue: #87A3E2;
+            --color-light-text: #FFFFFF; /* Pure white text for dark sections */
+            --color-dark-text: #333333; /* Dark text for light sections */
+            --color-light-card: #FFFFFF; /* Light card background */
+            --color-dark-card: #1E293B; /* Dark card background */
 
-    <main class="max-w-4xl mx-auto py-20 px-6 fade-in">
-      <h2 class="text-4xl font-bold text-highlight mb-6 text-center">
-        Neuromorphic Computing – In Depth
-      </h2>
-      <p class="text-lg text-gray-700 mb-8 text-center">
-        Inspired by biology. Engineered for the edge. Shaping the future of
-        ultra-efficient, adaptive systems.
-      </p>
+            --font-main: 'Inter', sans-serif;
+        }
 
-      <section class="space-y-8">
-        <div>
-          <h3 class="text-2xl font-semibold text-accent mb-2">What Is It?</h3>
-          <p>
-            Neuromorphic computing is a paradigm that mimics how the human brain
-            works by using spiking neural networks, event-driven architecture,
-            and memory-processing integration. Unlike traditional architectures,
-            neuromorphic systems allow asynchronous, parallel, low-energy
-            information processing, ideal for real-time inference on the edge.
-          </p>
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-light-background);
+            color: var(--color-dark-text);
+            scroll-behavior: smooth;
+        }
+
+        .bg-primary { background-color: var(--color-light-background); }
+        .bg-secondary { background-color: var(--color-light-card); }
+        .bg-tertiary { background-color: var(--color-dark-background); }
+        .text-main { color: var(--color-dark-text); }
+        .text-on-dark { color: var(--color-light-text); }
+        .text-accent { color: var(--color-electric-blue); }
+        .border-accent { border-color: var(--color-electric-blue); }
+
+        .bg-accent { background-color: var(--color-electric-blue); color: var(--color-light-card); }
+        .bg-accent-light { background-color: rgba(92, 103, 242, 0.1); }
+
+        .bg-highlight { background-color: var(--color-royal-blue); }
+        .text-highlight { color: var(--color-royal-blue); }
+
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: var(--color-electric-blue);
+            border-bottom-color: var(--color-electric-blue);
+        }
+
+        /* Custom style for the blurred navigation bar */
+        .nav-blur {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .tab {
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .tab.active {
+            background-color: var(--color-electric-blue);
+            color: var(--color-dark-card);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        .description-box {
+            min-height: 250px; /* Ensures the box doesn't jump on content change */
+        }
+    </style>
+</head>
+<body class="bg-primary text-main">
+
+    <!-- Navigation Bar -->
+    <nav class="nav-blur fixed w-full top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-accent">Semiconductor Insights</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#what-is-it" class="nav-link border-b-2 border-transparent hover:border-accent">What is it?</a>
+                <a href="#principles" class="nav-link border-b-2 border-transparent hover:border-accent">Principles</a>
+                <a href="#interactive-chart" class="nav-link border-b-2 border-transparent hover:border-accent">Properties</a>
+                <a href="#how-it-works" class="nav-link border-b-2 border-transparent hover:border-accent">How it works</a>
+                <a href="#scaling" class="nav-link border-b-2 border-transparent hover:border-accent">Scaling</a>
+                <a href="#applications" class="nav-link border-b-2 border-transparent hover:border-accent">Applications</a>
+                <a href="#challenges" class="nav-link border-b-2 border-transparent hover:border-accent">Challenges</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 text-accent focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
-
-        <div class="bg-accent-light p-6 rounded-lg">
-          <h3 class="text-xl font-semibold text-accent mb-3">
-            Why Does It Matter?
-          </h3>
-          <ul class="list-disc list-inside space-y-1 text-sm">
-            <li>Consumes 100x less power than traditional AI chips</li>
-            <li>Processes data on-device with minimal latency</li>
-            <li>Enables intelligent behavior in energy-constrained environments</li>
-            <li>Closer to biological cognition than any previous approach</li>
-          </ul>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden nav-blur w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#what-is-it" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">What is it?</a>
+                <a href="#principles" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Principles</a>
+                <a href="#interactive-chart" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Properties</a>
+                <a href="#how-it-works" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">How it works</a>
+                <a href="#scaling" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Scaling</a>
+                <a href="#applications" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Applications</a>
+                <a href="#challenges" class="block py-2 px-4 text-accent hover:bg-accent-light rounded-md">Challenges</a>
+            </div>
         </div>
+    </nav>
 
-        <div>
-          <h3 class="text-xl font-semibold text-accent mb-2">Applications</h3>
-          <p>
-            Neuromorphic hardware is being explored in autonomous drones,
-            robotic vision, prosthetics, medical diagnostics, and even
-            space-based computing where power is scarce. Event-driven sensors
-            from companies like Prophesee are enabling real-time object
-            detection with minimal data.
-          </p>
-        </div>
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="hero" class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center fade-in">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-highlight mb-4 leading-tight">
+                Neuromorphic Computing
+            </h1>
+            <h2 class="text-xl md:text-2xl text-accent font-semibold mb-8">
+                The Next Leap in AI and Low-Power Processing
+            </h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-main opacity-80">
+                Explore the revolutionary technology that mimics the human brain's architecture to enable
+                highly efficient, event-driven, and massively parallel computing for a new era of intelligent machines.
+            </p>
+        </section>
 
-        <div class="bg-accent-light p-6 rounded-lg">
-          <h4 class="text-lg font-semibold text-accent mb-2">Pioneers</h4>
-          <ul class="list-disc list-inside space-y-1 text-sm">
-            <li>Intel – Loihi 1 & 2</li>
-            <li>IBM – TrueNorth architecture</li>
-            <li>BrainChip – Akida platform</li>
-            <li>Prophesee – event-based vision</li>
-            <li>SynSense – neuromorphic edge chips</li>
-          </ul>
-        </div>
+        <!-- Section: What is it? (DARK BACKGROUND) -->
+        <section id="what-is-it" class="bg-tertiary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in text-on-dark">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                What is Neuromorphic Computing?
+            </h3>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <p class="text-lg opacity-80">
+                    Neuromorphic computing is an innovative approach to computer architecture that directly emulates the
+                    structure and function of the brain's nervous system. Unlike traditional computing, which relies on the
+                    von Neumann architecture with separate processing and memory units, neuromorphic systems integrate these
+                    functions, allowing for massive parallelism and unprecedented energy efficiency.
+                </p>
+                <div class="flex justify-center">
+                    <img src="https://placehold.co/400x250/1A1A1A/E0E0E0?text=Neuromorphic+Chip" alt="A Neuromorphic Chip" class="rounded-lg shadow-lg border-2 border-accent">
+                </div>
+            </div>
+            <p class="text-lg opacity-80 mt-6">
+                Instead of processing data in sequential clock cycles, these systems use **Spiking Neural Networks (SNNs)**,
+                where information is transmitted as "spikes" or pulses, similar to how neurons communicate. This
+                asynchronous, event-driven approach dramatically reduces power consumption, making it ideal for
+                edge devices and real-time applications.
+            </p>
+            <div class="mt-12">
+                <h4 class="text-xl font-semibold mb-4 text-accent text-center">Quick Comparison: Neuromorphic vs. Von Neumann</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700 rounded-lg shadow-sm">
+                        <thead class="bg-dark-card">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Feature</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Neuromorphic Computing</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Von Neumann Computing</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-dark-card divide-y divide-gray-700">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-on-dark">Architecture</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Integrated memory and processing</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Separate memory and processing</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-on-dark">Communication</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Event-driven (spikes)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Clock-cycle based</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-on-dark">Energy Efficiency</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Extremely high</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-on-dark">Relatively low</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
-        <div>
-          <h3 class="text-xl font-semibold text-accent mb-2">
-            State of the Art
-          </h3>
-          <p>
-            As of 2025, Intel's Loihi 2 chip demonstrates the potential of
-            plasticity-based learning with power consumption in the milliwatt
-            range. European projects like SpiNNaker and BrainScaleS aim to
-            simulate brain-like processes with scalable silicon. The focus is
-            shifting from simulation to deployment.
-          </p>
-        </div>
+        <!-- Key Principles Section (LIGHT BACKGROUND) -->
+        <section id="principles" class="bg-secondary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-12 text-center">
+                Key Principles and Architecture
+            </h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Principle 1 -->
+                <div class="bg-light-background rounded-lg shadow-xl p-6 text-center hover:shadow-2xl transition-shadow duration-300">
+                    <div class="w-16 h-16 rounded-full bg-accent-light mx-auto flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-accent">Event-Driven Processing</h4>
+                    <p class="text-sm opacity-80">
+                        Information is processed only when a spike occurs, reducing unnecessary computation and power consumption.
+                        This is a fundamental shift from continuous, clock-based operations.
+                    </p>
+                </div>
+                <!-- Principle 2 -->
+                <div class="bg-light-background rounded-lg shadow-xl p-6 text-center hover:shadow-2xl transition-shadow duration-300">
+                    <div class="w-16 h-16 rounded-full bg-accent-light mx-auto flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10l-8-4-8 4m0-4v10l8 4m0 0l8-4m-8 4v-10"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-accent">Co-location of Memory and Compute</h4>
+                    <p class="text-sm opacity-80">
+                        Processing units (neurons) and memory (synapses) are tightly integrated, eliminating the
+                        "von Neumann bottleneck" and enabling high-speed parallel processing.
+                    </p>
+                </div>
+                <!-- Principle 3 -->
+                <div class="bg-light-background rounded-lg shadow-xl p-6 text-center hover:shadow-2xl transition-shadow duration-300">
+                    <div class="w-16 h-16 rounded-full bg-accent-light mx-auto flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-accent">Massive Parallelism</h4>
+                    <p class="text-sm opacity-80">
+                        With millions of interconnected "neurons" and "synapses", neuromorphic chips can perform a vast number of
+                        operations simultaneously, mimicking the brain's parallel processing capabilities.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        <div class="text-center pt-10">
-          <a
-            href="https://en.wikipedia.org/wiki/Neuromorphic_engineering"
-            class="inline-block bg-accent text-white px-6 py-3 rounded-lg shadow hover:bg-royal-blue transition"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read More on Wikipedia ↗
-          </a>
-        </div>
-      </section>
+        <!-- Section: Interactive Properties Chart (LIGHT BACKGROUND) -->
+        <section id="interactive-chart" class="bg-secondary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                Interactive Neuromorphic Properties
+            </h3>
+            <p class="text-lg opacity-80 mb-8 text-center max-w-4xl mx-auto">
+                Click on a slice of the pie chart to learn more about each core property of neuromorphic computing.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- Pie Chart Container -->
+                <div class="w-full h-80 flex items-center justify-center">
+                    <canvas id="propertiesPieChart"></canvas>
+                </div>
+                <!-- Description Box -->
+                <div id="descriptionBox" class="bg-light-background rounded-lg shadow-inner border-2 border-gray-300 p-6 description-box transition-all duration-300 ease-in-out">
+                    <h4 id="descriptionTitle" class="text-xl font-semibold text-accent mb-4">Click a slice to learn more</h4>
+                    <p id="descriptionText" class="text-sm opacity-80">
+                        Select a property from the pie chart to see a detailed explanation of how it works and its importance in neuromorphic computing.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section: How it works (LIGHT BACKGROUND) -->
+        <section id="how-it-works" class="bg-secondary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                How It Works: The Leaky Integrate-and-Fire (LIF) Model
+            </h3>
+            <p class="text-lg opacity-80 mb-8 text-center max-w-4xl mx-auto">
+                This model is a simplification of how a biological neuron works and consists of two main parts:
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="flex flex-col items-center p-4 bg-light-background rounded-lg shadow-inner border-2 border-gray-300">
+                    <svg class="w-16 h-16 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.75V19.25M7.5 12H16.5M7.5 9H16.5M7.5 15H16.5"></path>
+                    </svg>
+                    <h4 class="text-xl font-semibold mb-2 text-accent">1. The Integrator (Integrate)</h4>
+                    <p class="text-sm opacity-80 text-center">
+                        The neuron accumulates membrane potential from the stimuli (or "spikes") it receives from other
+                        neurons. The more stimuli it receives, the faster its potential increases.
+                    </p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-light-background rounded-lg shadow-inner border-2 border-gray-300">
+                    <svg class="w-16 h-16 text-accent mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h4 class="text-xl font-semibold mb-2 text-accent">2. The Leaky and Fire</h4>
+                    <p class="text-sm opacity-80 text-center">
+                        If the neuron does not receive stimuli, its membrane potential "leaks" and returns to its initial state.
+                        If the potential reaches a threshold, the neuron "fires" a spike and then resets itself.
+                    </p>
+                </div>
+            </div>
+            <p class="text-lg opacity-80 mt-8 text-center max-w-4xl mx-auto">
+                This simple model captures the key dynamics of neural processing efficiently, making it the basis for most
+                current neuromorphic systems.
+            </p>
+        </section>
+
+        <!-- Scaling Comparison Section (LIGHT BACKGROUND) -->
+        <section id="scaling" class="bg-secondary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                Scaling Efficiency: Neuromorphic vs. Von Neumann
+            </h3>
+            <p class="text-lg opacity-80 mb-8 text-center max-w-4xl mx-auto">
+                The major advantage of neuromorphic computing is its efficiency. This chart shows how
+                compute efficiency (operations per watt) changes as the size of the system scales.
+            </p>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Applications Section (DARK BACKGROUND) -->
+        <section id="applications" class="bg-tertiary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in text-on-dark">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                Where Neuromorphic Computing Shines
+            </h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Application 1 -->
+                <div class="bg-dark-card rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <h4 class="text-xl font-semibold text-accent">Edge AI and IoT</h4>
+                    </div>
+                    <p class="text-sm opacity-80">
+                        Enables real-time, low-power data processing directly on sensors and devices, allowing smart
+                        cameras, drones, and wearables to make intelligent decisions without cloud connectivity.
+                    </p>
+                </div>
+                <!-- Application 2 -->
+                <div class="bg-dark-card rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h4 class="text-xl font-semibold text-accent">Autonomous Systems</h4>
+                    </div>
+                    <p class="text-sm opacity-80">
+                        Enables faster, more efficient decision-making in robotics, self-driving vehicles, and
+                        drones, which require rapid processing of real-time sensor data.
+                    </p>
+                </div>
+                <!-- Application 3 -->
+                <div class="bg-dark-card rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-8 h-8 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L12 19.25L14.25 17M12 4.75V19.25M7.5 12H16.5M7.5 9H16.5M7.5 15H16.5"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-accent">Sensor Fusion</h4>
+                    <p class="text-sm opacity-80">
+                        Efficiently integrates and processes data from multiple sensor types (vision, sound, touch)
+                        in a brain-like manner to create a unified perception of the environment.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges Section (LIGHT BACKGROUND) -->
+        <section id="challenges" class="bg-secondary rounded-lg shadow-xl container mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-highlight mb-8 text-center">
+                Challenges and Future Outlook
+            </h3>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <ul class="text-lg opacity-80 list-disc list-inside space-y-4">
+                    <li>
+                        <strong class="text-accent">Algorithm Development:</strong> The biggest challenge is adapting traditional machine learning models
+                        and creating new algorithms that can fully leverage the unique architecture of SNNs, a field that
+                        is still in active development.
+                    </li>
+                    <li>
+                        <strong class="text-accent">Hardware Design and Manufacturing:</strong> Scaling neuromorphic chips to a practical size
+                        and manufacturing them cost-effectively remains a significant technical challenge.
+                    </li>
+                    <li>
+                        <strong class="text-accent">Software Ecosystem and Tools:</strong> The lack of a mature software ecosystem and programming
+                        tools makes it difficult for developers to build complex applications, hindering adoption.
+                    </li>
+                    <li>
+                        <strong class="text-accent">Interoperability:</strong> Integrating neuromorphic systems with existing traditional computing
+                        infrastructure in a seamless manner presents a compatibility challenge.
+                    </li>
+                </ul>
+                <div class="flex flex-col justify-center">
+                    <p class="text-lg opacity-80">
+                        Despite these challenges, the potential of neuromorphic computing is immense. As research advances and
+                        the hardware becomes more accessible, it is poised to revolutionize AI, creating a new generation of
+                        devices that are not only intelligent but also operate with unprecedented efficiency, bringing us
+                        closer to truly brain-inspired computing.
+                    </p>
+                    <img src="https://placehold.co/400x250/1A1A1A/E0E0E0?text=Future+of+AI" alt="The future of AI" class="rounded-lg shadow-lg mt-6 border-2 border-accent">
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="text-center text-sm text-gray-500 py-8">
-      &copy; 2025 Semiconductor Insights. All rights reserved.
+    <!-- Footer -->
+    <footer class="bg-tertiary text-on-dark py-6 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Semiconductor Insights. All rights reserved.</p>
+        </div>
     </footer>
-  </body>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Toggle mobile menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Intersection Observer for fade-in effect
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Chart.js for the scaling comparison
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        const comparisonChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Small', 'Medium', 'Large', 'Huge'],
+                datasets: [{
+                    label: 'Neuromorphic',
+                    data: [20, 50, 75, 95],
+                    borderColor: '#5C67F2',
+                    backgroundColor: 'rgba(92, 103, 242, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#5C67F2',
+                }, {
+                    label: 'Von Neumann (Data Center)',
+                    data: [80, 85, 70, 60],
+                    borderColor: '#3A47FF',
+                    backgroundColor: 'rgba(58, 71, 255, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#3A47FF',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Compute Efficiency (arbitrary unit)',
+                            color: '#333333' /* Dark color for light background */
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)', /* Lighter grid lines */
+                        },
+                        ticks: {
+                            color: '#333333', /* Dark color for ticks */
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'System Size (Neurons / Servers)',
+                            color: '#333333' /* Dark color for light background */
+                        },
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            color: '#333333', /* Dark color for ticks */
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#333333', /* Dark color for legend labels */
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return `Size: ${context[0].label}`;
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += `Efficiency: ${context.parsed.y}`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // New Chart.js for the interactive pie chart
+        const propertiesData = [
+            {
+                title: 'Energy Efficiency',
+                description: 'Neuromorphic chips consume significantly less power than traditional CPUs or GPUs. Their event-driven nature means they only draw power when information is being actively processed, leading to massive energy savings.',
+                color: '#5C67F2' // Electric Blue
+            },
+            {
+                title: 'Massive Parallelism',
+                description: 'Inspired by the human brain, these systems perform millions of operations simultaneously. Each artificial neuron can process its own data independently, making them ideal for complex, real-time tasks like image or speech recognition.',
+                color: '#3A47FF' // Royal Blue
+            },
+            {
+                title: 'Integrated Memory',
+                description: 'By placing memory (synapses) and processing (neurons) together, neuromorphic architectures overcome the "von Neumann bottleneck." This allows for much faster data access and processing, as data does not need to be constantly moved back and forth between separate components.',
+                color: '#87A3E2' // Sky Blue
+            },
+            {
+                title: 'Event-Driven Processing',
+                description: 'Unlike traditional systems that run on a continuous clock, neuromorphic computers process information only when an event (or "spike") occurs. This asynchronous model is highly efficient, as it avoids unnecessary computations and waiting periods.',
+                color: '#3E5C76' // Darker Blue
+            }
+        ];
+
+        const pieCtx = document.getElementById('propertiesPieChart').getContext('2d');
+        const propertiesPieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: propertiesData.map(d => d.title),
+                datasets: [{
+                    data: propertiesData.map(d => 1), // Equal size slices
+                    backgroundColor: propertiesData.map(d => d.color),
+                    borderColor: '#FFFFFF',
+                    borderWidth: 2,
+                    hoverOffset: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#333333',
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            },
+                            boxWidth: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: false // Disable default tooltips
+                    }
+                },
+                onClick: (e, elements) => {
+                    if (elements.length > 0) {
+                        const clickedIndex = elements[0].index;
+                        const data = propertiesData[clickedIndex];
+                        
+                        const descriptionTitle = document.getElementById('descriptionTitle');
+                        const descriptionText = document.getElementById('descriptionText');
+                        const descriptionBox = document.getElementById('descriptionBox');
+                        
+                        // Apply fade-out before changing content
+                        descriptionBox.style.opacity = '0';
+                        setTimeout(() => {
+                            descriptionTitle.textContent = data.title;
+                            descriptionText.textContent = data.description;
+                            descriptionBox.style.opacity = '1';
+                        }, 200); // Wait for a brief moment for the fade-out
+                    }
+                }
+            }
+        });
+    </script>
+</body>
 </html>
