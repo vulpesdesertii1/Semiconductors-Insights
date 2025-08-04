@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <clipPath id="clip-logo_semiconcductors_insights">
+      <rect width="1080" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="logo_semiconcductors_insights" data-name="logo semiconcductors insights" clip-path="url(#clip-logo_semiconcductors_insights)">
+    <rect width="1080" height="1080" fill="#fff"/>
+    <path id="Trazado_1" data-name="Trazado 1" d="M462.346-137.858S168.92-152.325,109.871-114.239s160.4,250.8,107.2,288.884-318.181-58.413-318.181-58.413V467.105" transform="translate(432.442 428.5)" fill="none" stroke="#032ca6" stroke-width="150"/>
+    <line id="Línea_1" data-name="Línea 1" y1="160" x2="0.115" transform="translate(331.327 243.945)" fill="none" stroke="#032ca6" stroke-width="150"/>
+  </g>
+</svg>
