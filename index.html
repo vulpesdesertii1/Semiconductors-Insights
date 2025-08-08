@@ -474,56 +474,61 @@
                 }]
             };
             
-            const sectorContentData = {
-  ai: {
-    title: 'Artificial Intelligence & Machine Learning',
-    text: `It is impossible to talk about the future of AI without talking about the future of silicon. Artificial Intelligence is not just a user of semiconductors; it is the single most powerful force reshaping the entire industry. 
-    The old way of doing things—simply making chips smaller and faster—has given way to a new paradigm where every design choice, every material, and every manufacturing process is dictated by the needs of AI.
+            <script>
+  const sectorContentData = {
+    ai: {
+      title: 'Artificial Intelligence & Machine Learning',
+      text: "It is a new era... (tu texto)",
+      leaders: [
+        { name: 'NVIDIA', description: 'The engine of this revolution...' },
+        { name: 'AMD', description: 'The champion of an open future...' },
+        { name: 'Intel', description: 'The ubiquitous innovator...' },
+        { name: 'Google (TPUs)', description: 'The true believers...' },
+        { name: 'Ayar Labs', description: 'The audacious new player...' }
+      ]
+    },
+    automotive: {
+      title: 'Automotive & Electric Vehicles',
+      text: 'Modern vehicles are becoming data centers on wheels...',
+      leaders: [
+        { name:'NXP'}, {name:'Infineon'}, {name:'Renesas'}, {name:'Texas Instruments'}, {name:'Bosch'}
+      ]
+    },
+    cloud: {
+      title: 'Cloud Computing & Data Centers',
+      text: 'The expansion of cloud services...',
+      leaders: [
+        {name:'Intel (Xeon)'},{name:'AMD (EPYC)'},{name:'Broadcom'},{name:'Marvell'},{name:'Celestial AI'}
+      ]
+    },
+    telecom: {
+      title: 'Telecommunications & 5G',
+      text: 'The rollout of 5G and the development...',
+      leaders: [
+        {name:'Qualcomm'},{name:'Broadcom'},{name:'Qorvo'},{name:'Skyworks'}
+      ]
+    }
+  };
 
-    The demands of large language models and generative AI are pushing the very boundaries of physics and engineering. They require not just raw processing power, but massive parallelization, unprecedented memory bandwidth, 
-    and radical new approaches to energy efficiency. This isn't just about faster clock speeds; it's about fundamentally rethinking the architecture of silicon itself.`,
-    leaders: [
-      {
-        name: 'NVIDIA',
-        description: `They didn’t just build a GPU; they forged an entirely new market, creating the architecture and the software stack (CUDA) that transformed the GPU from a graphics engine into the universal processor for AI. 
-        They demonstrated that the future of semiconductors would be driven by a co-evolution of hardware and software.`
-      },
-      {
-        name: 'AMD',
-        description: `A testament to the power of competition and open innovation. Their push for energy efficiency and their open-source ROCm platform are direct responses to the massive power and cost challenges of AI data centers. 
-        They are proving that leadership will be won through both performance and openness.`
-      },
-      {
-        name: 'Intel',
-        description: `The evolution of a giant. Recognizing the shift, they are reimagining the CPU to natively accelerate AI. By integrating AI into core designs and pushing a full portfolio from server to client, 
-        they are reinventing the foundation of computing.`
-      },
-      {
-        name: 'Google (TPUs)',
-        description: `A lighthouse example of the new reality. Google's TPUs are custom-built for AI scale. They embody the rise of application-specific integrated circuits (ASICs), a trend that is becoming increasingly critical in AI-driven silicon design.`
-      },
-      {
-        name: 'Ayar Labs (Startup)',
-        description: `Forward-thinking innovators tackling the most fundamental bottleneck: data movement. By using light instead of electricity through silicon photonics, they’re redefining how transistors communicate—at the speed of light.`
-      }
-    ]
-  },
-  automotive: {
-    title: 'Automotive & Electric Vehicles',
-    text: 'Modern vehicles are becoming data centers on wheels. EVs use 2-3x more chips than traditional cars for battery management, infotainment, and advanced driver-assistance systems (ADAS). The push for autonomous driving (Level 3+) is creating huge demand for powerful SoCs, sensors, and power semiconductors like SiC and GaN.',
-    leaders: 'NXP, Infineon, Renesas, Texas Instruments, Bosch'
-  },
-  cloud: {
-    title: 'Cloud Computing & Data Centers',
-    text: 'The expansion of cloud services and data centers requires a massive amount of high-performance chips for processing, storage, and networking. AI inference workloads in the cloud are a major demand driver. Innovations in silicon photonics are crucial for enabling faster, more efficient data transfer between chips.',
-    leaders: 'Intel (Xeon), AMD (EPYC), Broadcom, Marvell, Celestial AI (Startup)'
-  },
-  telecom: {
-    title: 'Telecommunications & 5G',
-    text: 'The rollout of 5G and the development towards 6G infrastructure fuel demand for advanced RF chips, modems, and processors. This enables faster connectivity for smartphones, IoT devices, and smart city applications, creating a foundation for a hyper-connected world.',
-    leaders: 'Qualcomm, Broadcom, Qorvo, Skyworks Solutions'
+  function renderSectorContent(sector) {
+    const data = sectorContentData[sector];
+    const container = document.getElementById('sector-content');
+    const leadersHTML = (data.leaders || []).map(l =>
+      `<li class="mb-1"><span class="font-semibold">${l.name}</span>${l.description ? ` — <span class="text-gray-600">${l.description}</span>` : ''}</li>`
+    ).join('');
+    container.innerHTML = `
+      <div class="fade-in">
+        <h4 class="text-2xl font-bold text-highlight mb-3">${data.title}</h4>
+        <p class="text-gray-600 mb-4">${data.text}</p>
+        <div class="bg-accent-light p-4 rounded-lg">
+          <h5 class="font-semibold text-accent mb-2">Key Players & Innovators:</h5>
+          <ul class="list-disc list-inside text-main text-sm">${leadersHTML}</ul>
+        </div>
+      </div>
+    `;
   }
-};
+</script>
+
 
 
             let companyFinancialsChartInstance;
