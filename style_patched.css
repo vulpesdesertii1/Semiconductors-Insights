@@ -1,0 +1,79 @@
+:root {
+  --color-electric-blue: #040DBF;
+  --color-midnight-blue: #010326;
+  --color-royal-blue: #032CA6;
+  --color-sky-blue: #1F64BF;
+  --color-light: #F2F2F2;
+
+  --font-main: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-light);
+  color: var(--color-midnight-blue);
+  scroll-behavior: smooth;
+}
+
+.bg-primary { background-color: var(--color-light); }
+.bg-secondary { background-color: white; }
+.text-main { color: var(--color-midnight-blue); }
+.text-accent { color: var(--color-electric-blue); }
+.border-accent { border-color: var(--color-electric-blue); }
+
+.bg-accent { background-color: var(--color-electric-blue); color: white; }
+.bg-accent-light { background-color: rgba(4, 13, 191, 0.05); }
+
+.bg-highlight { background-color: var(--color-royal-blue); }
+.text-highlight { color: var(--color-royal-blue); }
+
+.nav-link {
+  transition: color 0.3s, border-bottom-color 0.3s;
+  font-weight: 500;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: var(--color-electric-blue);
+  border-bottom-color: var(--color-electric-blue);
+}
+
+.tab {
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.tab.active {
+  background-color: var(--color-electric-blue);
+  color: white;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section {
+  scroll-margin-top: 50px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 350px;
+  max-height: 40vh;
+}
+
+@media (min-width: 768px) {
+  .chart-container {
+    height: 400px;
+  }
+}
