@@ -477,26 +477,21 @@
   const sectorContentData = {
     ai: {
     title: 'Artificial Intelligence & Machine Learning',
-    text: `It is a new era. A moment when the rules are being rewritten, not by chance, but by necessity. 
-We believe that Artificial Intelligence and Machine Learning are not just technologies—they are the beating heart of the next great revolution in computing. And revolutions demand new foundations.
-
-For decades, semiconductors have quietly powered our world. They made the personal computer possible. 
-They made the internet possible. They made the smartphone possible. But the world has changed. 
-The old way of doing things—the traditional semiconductor model—is reaching its limit. 
-We’ve spent years squeezing more transistors into smaller spaces, chasing incremental gains, pushing physics to the edge. 
-And now, AI stands before us, asking for something more. Much more.
-
-AI doesn’t just want faster chips. It craves intelligence in silicon—architectures that think, adapt, and learn. 
-It demands bandwidth measured in terabytes per second, latency so low it disappears, and energy efficiency that makes the impossible sustainable. 
-It’s not enough to run algorithms faster. The very concept of a chip must be reimagined.
-
-This is the moment where visionaries rise. Where engineers, designers, and dreamers ask: 
-What if a chip wasn’t just a processor, but a partner? What if silicon could understand context, predict needs, and evolve with us? 
-The answer to these questions will define the next decade of technology.
-
-In this new era, semiconductors are no longer the silent enablers—they are the stage upon which the future will be built. 
-This is our chance to design not just the next chip, but the next chapter in human progress. 
-And for those who dare to see that different future, the horizon has never looked closer… or more exciting.`,
+    textBlocks: [
+      'It is a new era — rules are being rewritten by necessity.',
+      'For decades, semiconductors powered the PC, the internet, the smartphone. That model is hitting its limits.',
+      'AI needs intelligence in silicon: architectures that think, adapt, and learn.',
+      'It demands terabytes-per-second bandwidth, near-zero latency, and radical efficiency.',
+      'This isn’t iteration — it’s reinvention of what a chip can be.',
+      'Visionaries ask: What if a chip were a partner that understands context and evolves?',
+      'Semiconductors are now the stage where the future is built — not just faster chips, but a new chapter in human progress.'
+    ],
+    keyTakeaways: [
+      { label: 'Why now', text: 'Traditional scaling is near its limits; physics & economics bite.' },
+      { label: 'AI’s ask', text: 'Compute, bandwidth, efficiency — simultaneously, at scale.' },
+      { label: 'Design shift', text: 'From “more MHz” to “more intelligence in silicon”.' },
+      { label: 'Impact', text: 'From datacenters to edge — new architectures, interconnects, and memory.' }
+    ],
     leaders: [
       { name: 'NVIDIA', description: 'GPUs + CUDA; estándar de facto para entrenamiento e inferencia.' },
       { name: 'AMD', description: 'EPYC + Instinct; alternativa fuerte en datacenter y HPC.' },
@@ -563,27 +558,58 @@ And for those who dare to see that different future, the horizon has never looke
   const container = document.getElementById('sector-content');
   if (!data || !container) return;
 
+  // Párrafos: usa textBlocks si existe; si no, parte el string por dobles saltos
+  const paragraphs = Array.isArray(data.textBlocks)
+    ? data.textBlocks
+    : (typeof data.text === 'string'
+        ? data.text.split(/\n\s*\n/)
+        : []);
+
+  const paragraphsHTML = paragraphs.map(p => `
+    <p class="text-[17px] leading-8 text-gray-700 mb-3">${p}</p>
+  `).join('');
+
+  // Bullets “scan-friendly”
+  const takeawaysHTML = Array.isArray(data.keyTakeaways) && data.keyTakeaways.length
+    ? `
+      <div class="mt-5 bg-blue-50/60 border border-blue-200 rounded-lg p-5">
+        <h6 class="font-semibold text-blue-800 mb-2">At a glance</h6>
+        <ul class="list-disc list-inside space-y-1 text-gray-800">
+          ${data.keyTakeaways.map(k => `
+            <li><span class="font-semibold">${k.label}:</span> ${k.text}</li>
+          `).join('')}
+        </ul>
+      </div>
+    `
+    : '';
+
+  // Lista rica de líderes
   const leadersHTML = Array.isArray(data.leaders)
     ? `<ul class="list-disc list-inside text-sm md:text-base space-y-1">
         ${data.leaders.map(l => `
-          <li>
-            <span class="font-semibold">${l.name}</span>${l.description ? `: <span class="text-gray-600">${l.description}</span>` : ''}
-          </li>
+          <li><span class="font-semibold">${l.name}</span>${l.description ? `: <span class="text-gray-600">${l.description}</span>` : ''}</li>
         `).join('')}
        </ul>`
     : `<p class="text-sm md:text-base text-main">${data.leaders ?? ''}</p>`;
 
   container.innerHTML = `
     <div class="fade-in">
-      <h4 class="text-2xl md:text-3xl font-bold text-highlight mb-3">${data.title}</h4>
-      <p class="text-gray-600 mb-4">${data.text}</p>
-      <div class="bg-accent-light p-4 rounded-lg border border-accent/30">
-        <h5 class="font-semibold text-accent mb-2">Key Players & Innovators:</h5>
+      <h4 class="text-3xl md:text-4xl font-bold text-highlight mb-4">${data.title}</h4>
+
+      <div class="space-y-2">
+        ${paragraphsHTML}
+      </div>
+
+      ${takeawaysHTML}
+
+      <div class="mt-6 bg-accent-light/70 p-4 rounded-lg border border-accent/30">
+        <h5 class="font-semibold text-accent mb-2">Key Players & Innovators</h5>
         ${leadersHTML}
       </div>
     </div>
   `;
 }
+
 
 
             const sectorTabs = document.querySelectorAll('.sector-tab');
