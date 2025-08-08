@@ -540,19 +540,32 @@
             });
 
             function renderSectorContent(sector) {
-                const data = sectorContentData[sector];
-                const container = document.getElementById('sector-content');
-                container.innerHTML = `
-                    <div class="fade-in">
-                        <h4 class="text-2xl font-bold text-highlight mb-3">${data.title}</h4>
-                        <p class="text-gray-600 mb-4">${data.text}</p>
-                        <div class="bg-accent-light p-4 rounded-lg">
-                           <h5 class="font-semibold text-accent mb-2">Key Players & Innovators:</h5>
-                           <p class="text-sm text-main">${data.leaders}</p>
-                        </div>
-                    </div>
-                `;
-            }
+  const data = sectorContentData[sector];
+  const container = document.getElementById('sector-content');
+  if (!data || !container) return;
+
+  const leadersHTML = Array.isArray(data.leaders)
+    ? `<ul class="list-disc list-inside text-sm md:text-base space-y-1">
+        ${data.leaders.map(l => `
+          <li>
+            <span class="font-semibold">${l.name}</span>${l.description ? `: <span class="text-gray-600">${l.description}</span>` : ''}
+          </li>
+        `).join('')}
+       </ul>`
+    : `<p class="text-sm md:text-base text-main">${data.leaders ?? ''}</p>`;
+
+  container.innerHTML = `
+    <div class="fade-in">
+      <h4 class="text-2xl md:text-3xl font-bold text-highlight mb-3">${data.title}</h4>
+      <p class="text-gray-600 mb-4">${data.text}</p>
+      <div class="bg-accent-light p-4 rounded-lg border border-accent/30">
+        <h5 class="font-semibold text-accent mb-2">Key Players & Innovators:</h5>
+        ${leadersHTML}
+      </div>
+    </div>
+  `;
+}
+
 
             const sectorTabs = document.querySelectorAll('.sector-tab');
             sectorTabs.forEach(tab => {
