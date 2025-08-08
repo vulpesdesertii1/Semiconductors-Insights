@@ -474,34 +474,17 @@
                 }]
             };
             
-            <script>
   const sectorContentData = {
     ai: {
       title: 'Artificial Intelligence & Machine Learning',
       text: 'It is a new era. A moment of profound change. We believe that Artificial Intelligence and Machine Learning are not just technologies; they are the very soul of the next great revolution in computing, and they are demanding an entirely new foundation. The old way of doing things, the traditional semiconductor model, is reaching its limit. Today, innovation is no longer about incremental gains. It\'s about a fundamental reimagining of what a chip can be, driven by a simple, powerful need: the relentless hunger of AI for more computational power, more bandwidth, and more efficiency. This is a time for visionaries, for those who dare to see a different future.',
       leaders: [
-        {
-          name: 'NVIDIA',
-          description: 'The engine of this revolution...'
-        },
-        {
-          name: 'AMD',
-          description: 'The champion of an open future...'
-        },
-        {
-          name: 'Intel',
-          description: 'The ubiquitous innovator...'
-        },
-        {
-          name: 'Google (TPUs)',
-          description: 'The true believers...'
-        },
-        {
-          name: 'Ayar Labs (Startup)',
-          description: 'The audacious new player...'
-        }
-      ]
-    },
+        { name: 'NVIDIA', description: 'GPUs + CUDA; estándar de facto para entrenamiento e inferencia.' },
+      { name: 'AMD', description: 'EPYC + Instinct; alternativa fuerte en datacenter y HPC.' },
+      { name: 'Google (TPUs)', description: 'ASICs para IA a escala; optimizados para sus frameworks.' },
+      { name: 'Ayar Labs', description: 'I/O fotónica; ancho de banda brutal para IA distribuida.' }
+    ]
+  },
     automotive: {
       title: 'Automotive & Electric Vehicles',
       text: 'Modern vehicles are becoming data centers on wheels...',
@@ -518,7 +501,6 @@
       leaders: 'Qualcomm, Broadcom, Qorvo, Skyworks Solutions'
     }
   };
-</script>
             let companyFinancialsChartInstance;
             
             function renderFinancialsChart(metric) {
