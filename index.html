@@ -527,16 +527,51 @@ automotive: {
 },
 
     cloud: {
-      title: 'Cloud Computing & Data Centers',
-      text: 'The expansion of cloud services...',
-      leaders: 'Intel (Xeon), AMD (EPYC), Broadcom, Marvell, Celestial AI (Startup)'
-    },
-    telecom: {
-      title: 'Telecommunications & 5G',
-      text: 'The rollout of 5G and the development...',
-      leaders: 'Qualcomm, Broadcom, Qorvo, Skyworks Solutions'
-    }
-  };
+  title: 'Cloud Computing & Data Centers',
+  textBlocks: [
+    'Cloud services have become the backbone of the digital economy — hosting applications, data, and AI workloads at a global scale.',
+    'Data centers are evolving into highly specialized compute environments, optimized for performance, efficiency, and scalability.',
+    'The rise of AI and high-performance computing is driving the demand for faster processors, specialized accelerators, and advanced networking.',
+    'Power efficiency is critical: every watt saved reduces operational costs and environmental impact.',
+    'Interconnect speed and low latency are now as important as raw compute power, enabling real-time analytics and distributed AI training.'
+  ],
+  keyTakeaways: [
+    { label: 'Compute evolution', text: 'From general-purpose CPUs to heterogeneous architectures with GPUs, TPUs, and DPUs.' },
+    { label: 'Efficiency', text: 'Advanced cooling, power management, and workload optimization reduce costs and carbon footprint.' },
+    { label: 'Networking', text: 'High-speed interconnects (InfiniBand, 400G Ethernet) for low-latency data movement.' },
+    { label: 'Scalability', text: 'Modular, software-defined infrastructure for rapid capacity expansion.' }
+  ],
+  leaders: [
+    { name: 'Intel (Xeon)', description: 'Server CPUs for general-purpose workloads; strong ecosystem and software support.' },
+    { name: 'AMD (EPYC)', description: 'High core-count CPUs with competitive performance-per-watt in cloud deployments.' },
+    { name: 'Broadcom', description: 'High-performance networking chips and storage connectivity solutions.' },
+    { name: 'Marvell', description: 'DPUs and storage controllers enabling workload offload and data acceleration.' },
+    { name: 'Celestial AI', description: 'Optical interconnect startup delivering extreme bandwidth for AI and cloud workloads.' }
+  ]
+},
+
+telecom: {
+  title: 'Telecommunications & 5G',
+  textBlocks: [
+    '5G is transforming telecommunications into a platform for ultra-low-latency and high-reliability services.',
+    'Telecom infrastructure is shifting towards software-defined networks (SDN) and virtualized RAN for flexibility and scalability.',
+    'Millimeter-wave and massive MIMO technologies are enabling higher data rates and network capacity.',
+    'Edge computing is becoming integral to telecom, pushing compute closer to the user to support real-time applications.',
+    'The semiconductor industry underpins 5G with RF front-ends, baseband processors, and high-speed optical networking components.'
+  ],
+  keyTakeaways: [
+    { label: 'Network evolution', text: 'From hardware-centric to virtualized, software-defined architectures.' },
+    { label: 'Spectrum utilization', text: 'Efficient use of mmWave, sub-6 GHz, and dynamic spectrum sharing.' },
+    { label: 'Edge integration', text: 'Distributed compute resources for latency-sensitive services like AR/VR and autonomous systems.' },
+    { label: 'Device connectivity', text: 'Advanced RF components enabling faster, more efficient mobile devices.' }
+  ],
+  leaders: [
+    { name: 'Qualcomm', description: '5G modem-to-antenna solutions for smartphones and IoT devices.' },
+    { name: 'Broadcom', description: 'Optical networking, switching, and RF components for telecom infrastructure.' },
+    { name: 'Qorvo', description: 'RF front-end modules and filters for mobile devices and base stations.' },
+    { name: 'Skyworks Solutions', description: 'RF components and connectivity solutions for mobile and IoT markets.' }
+  ]
+};
             let companyFinancialsChartInstance;
             
             function renderFinancialsChart(metric) {
