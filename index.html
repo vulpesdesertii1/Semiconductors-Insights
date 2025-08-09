@@ -476,54 +476,56 @@
             
   const sectorContentData = {
     ai: {
-    title: 'Artificial Intelligence & Machine Learning',
-    textBlocks: [
-      'It is a new era — rules are being rewritten by necessity.',
-      'For decades, semiconductors powered the PC, the internet, the smartphone. That model is hitting its limits.',
-      'AI needs intelligence in silicon: architectures that think, adapt, and learn.',
-      'It demands terabytes-per-second bandwidth, near-zero latency, and radical efficiency.',
-      'This isn’t iteration — it’s reinvention of what a chip can be.',
-      'Visionaries ask: What if a chip were a partner that understands context and evolves?',
-      'Semiconductors are now the stage where the future is built — not just faster chips, but a new chapter in human progress.'
-    ],
-    keyTakeaways: [
-      { label: 'Why now', text: 'Traditional scaling is near its limits; physics & economics bite.' },
-      { label: 'AI’s ask', text: 'Compute, bandwidth, efficiency — simultaneously, at scale.' },
-      { label: 'Design shift', text: 'From “more MHz” to “more intelligence in silicon”.' },
-      { label: 'Impact', text: 'From datacenters to edge — new architectures, interconnects, and memory.' }
-    ],
-    leaders: [
-      { name: 'NVIDIA', description: 'GPUs + CUDA; estándar de facto para entrenamiento e inferencia.' },
-      { name: 'AMD', description: 'EPYC + Instinct; alternativa fuerte en datacenter y HPC.' },
-      { name: 'Google (TPUs)', description: 'ASICs para IA a escala; optimizados para sus frameworks.' },
-      { name: 'Ayar Labs', description: 'I/O fotónica; ancho de banda brutal para IA distribuida.' }
-    ]
-  },
-    automotive: {
-    title: 'Automotive & Electric Vehicles',
-    textBlocks: [
-      'Cars are becoming data centers on wheels — software-defined, sensor-rich, always connected.',
-      'Power electronics is the backbone of EVs: efficient conversion, battery management, and thermal control.',
-      'Advanced driver assistance (ADAS) is pushing real-time compute at the edge: perception, fusion, planning.',
-      'In-vehicle networks (CAN/LIN/FlexRay/Ethernet) are evolving to zonal architectures and higher bandwidth.',
-      'Safety and security are non-negotiable: ISO 26262, ASIL levels, secure boot, hardware isolation.',
-      'From silicon choices (Si, SiC, GaN) to packaging and cooling, efficiency now defines range and cost.',
-      'The stack is converging: compute, sensing, connectivity, and power — tightly integrated on common platforms.'
-    ],
-    keyTakeaways: [
-      { label: 'Electrification', text: 'SiC/GaN power stages, high-voltage BMS, and efficient inverters drive range.' },
-      { label: 'Compute at the edge', text: 'SoCs/MCUs for real-time ADAS and domain/zonal control units.' },
-      { label: 'Networking', text: 'Automotive Ethernet + TSN replacing legacy buses in high-bandwidth domains.' },
-      { label: 'Safety & security', text: 'ASIL compliance, over-the-air updates, and silicon-level hardening.' }
-    ],
-    leaders: [
-      { name: 'NXP', description: 'MCUs/MPUs para domain & zonal controllers, redes (CAN/LIN/Ethernet) y seguridad automotriz.' },
-      { name: 'Infineon', description: 'Potencia para EV (IGBT/SiC), drivers, sensores y soluciones ASIL para inversores y OBC.' },
-      { name: 'Renesas', description: 'MCUs/SoCs para ADAS y powertrain, A/D de precisión y soluciones para control motor.' },
-      { name: 'Texas Instruments', description: 'Analógico y potencia: PMICs, BMS, drivers, aislación y medición de alta precisión.' },
-      { name: 'Bosch', description: 'Tier-1 con semiconductores propios: radar, MEMS, sensores y sistemas de asistencia.' }
-    ]
-  };
+  title: 'Artificial Intelligence & Machine Learning',
+  textBlocks: [
+    'It is a new era — rules are being rewritten by necessity.',
+    'For decades, semiconductors powered the PC, the internet, the smartphone. That model is hitting its limits.',
+    'AI needs intelligence in silicon: architectures that think, adapt, and learn.',
+    'It demands terabytes-per-second bandwidth, near-zero latency, and radical efficiency.',
+    'This isn’t iteration — it’s reinvention of what a chip can be.',
+    'Visionaries ask: What if a chip were a partner that understands context and evolves?',
+    'Semiconductors are now the stage where the future is built — not just faster chips, but a new chapter in human progress.'
+  ],
+  keyTakeaways: [
+    { label: 'Why now', text: 'Traditional scaling is near its limits; physics and economics are constraining progress.' },
+    { label: 'AI’s ask', text: 'Compute, bandwidth, and efficiency — all at scale, simultaneously.' },
+    { label: 'Design shift', text: 'From “more MHz” to “more intelligence in silicon”.' },
+    { label: 'Impact', text: 'From datacenters to edge — new architectures, interconnects, and memory hierarchies.' }
+  ],
+  leaders: [
+    { name: 'NVIDIA', description: 'GPUs + CUDA; the de facto standard for AI training and inference.' },
+    { name: 'AMD', description: 'EPYC CPUs + Instinct GPUs; a strong alternative in datacenters and HPC.' },
+    { name: 'Google (TPUs)', description: 'Custom ASICs for large-scale AI; optimized for TensorFlow and internal workloads.' },
+    { name: 'Ayar Labs', description: 'Optical I/O solutions enabling massive bandwidth for distributed AI systems.' }
+  ]
+},
+
+automotive: {
+  title: 'Automotive & Electric Vehicles',
+  textBlocks: [
+    'Cars are becoming data centers on wheels — software-defined, sensor-rich, and always connected.',
+    'Power electronics is the backbone of EVs: efficient conversion, battery management, and thermal control.',
+    'Advanced driver assistance systems (ADAS) are pushing real-time edge computing: perception, fusion, and planning.',
+    'In-vehicle networks (CAN/LIN/FlexRay/Ethernet) are evolving towards zonal architectures with higher bandwidth.',
+    'Safety and security are non-negotiable: ISO 26262 compliance, ASIL levels, secure boot, and hardware isolation.',
+    'From semiconductor choices (Si, SiC, GaN) to packaging and cooling, efficiency now defines range and cost.',
+    'The stack is converging: compute, sensing, connectivity, and power — tightly integrated on common platforms.'
+  ],
+  keyTakeaways: [
+    { label: 'Electrification', text: 'SiC/GaN power stages, high-voltage BMS, and efficient inverters drive range.' },
+    { label: 'Edge computing', text: 'SoCs/MCUs for real-time ADAS and domain/zonal control units.' },
+    { label: 'Networking', text: 'Automotive Ethernet + TSN replacing legacy buses in high-bandwidth domains.' },
+    { label: 'Safety & security', text: 'ASIL compliance, over-the-air updates, and silicon-level hardening.' }
+  ],
+  leaders: [
+    { name: 'NXP', description: 'MCUs/MPUs for domain & zonal controllers, in-vehicle networking (CAN/LIN/Ethernet), and automotive security.' },
+    { name: 'Infineon', description: 'EV power solutions (IGBT/SiC), drivers, sensors, and ASIL-compliant inverter and OBC systems.' },
+    { name: 'Renesas', description: 'MCUs/SoCs for ADAS and powertrain, precision ADCs, and motor control solutions.' },
+    { name: 'Texas Instruments', description: 'Analog and power: PMICs, BMS, drivers, isolation, and high-precision sensing.' },
+    { name: 'Bosch', description: 'Tier-1 supplier with in-house semiconductors: radar, MEMS, sensors, and driver assistance systems.' }
+  ]
+},
+
     cloud: {
       title: 'Cloud Computing & Data Centers',
       text: 'The expansion of cloud services...',
