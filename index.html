@@ -572,6 +572,7 @@ automotive: {
     { name: 'Skyworks Solutions', description: 'RF components and connectivity solutions for mobile and IoT markets.' }
   ]
 }
+};
             let companyFinancialsChartInstance;
             
             function renderFinancialsChart(metric) {
@@ -737,124 +738,7 @@ automotive: {
             renderFinancialsChart('marketCap');
             renderSectorContent('ai');
 
-            // LLM Integration for Technical Concept Explainer
-            const techConceptInput = document.getElementById('techConceptInput');
-            const explainConceptBtn = document.getElementById('explainConceptBtn');
-            const explanationOutput = document.getElementById('explanationOutput');
-            const explanationLoading = document.getElementById('explanationLoading');
-            const explanationError = document.getElementById('explanationError');
-
-            explainConceptBtn.addEventListener('click', async () => {
-                const concept = techConceptInput.value.trim();
-                if (!concept) {
-                    explanationOutput.innerHTML = 'Por favor, introduce un concepto para explicar.';
-                    explanationOutput.classList.remove('italic', 'text-gray-700');
-                    explanationOutput.classList.add('text-red-500');
-                    return;
-                }
-
-                explanationOutput.innerHTML = ''; // Clear previous output
-                explanationError.classList.add('hidden');
-                explanationLoading.classList.remove('hidden');
-                explanationOutput.classList.remove('text-red-500');
-                explanationOutput.classList.add('italic', 'text-gray-700');
-
-
-                try {
-                    let chatHistory = [];
-                    const prompt = `Explica el siguiente concepto de semiconductores en términos sencillos, centrándote en su importancia en la industria y su aplicación: ${concept}`;
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        explanationOutput.innerHTML = text;
-                        explanationOutput.classList.remove('italic', 'text-gray-700'); // Remove italic and gray for actual content
-                    } else {
-                        explanationOutput.innerHTML = 'No se pudo generar una explicación para este concepto. Intenta con otro.';
-                        explanationOutput.classList.remove('italic', 'text-gray-700');
-                        explanationOutput.classList.add('text-red-500');
-                    }
-                } catch (error) {
-                    console.error('Error fetching explanation:', error);
-                    explanationError.classList.remove('hidden');
-                    explanationOutput.innerHTML = 'Ocurrió un error al obtener la explicación. Inténtalo de nuevo.';
-                    explanationOutput.classList.remove('italic', 'text-gray-700');
-                    explanationOutput.classList.add('text-red-500');
-                } finally {
-                    explanationLoading.classList.add('hidden');
-                }
-            });
-
-            // LLM Integration for Geopolitical Impact Analyzer
-            const geopoliticalEventInput = document.getElementById('geopoliticalEventInput');
-            const analyzeImpactBtn = document.getElementById('analyzeImpactBtn');
-            const geopoliticalImpactOutput = document.getElementById('geopoliticalImpactOutput');
-            const geopoliticalLoading = document.getElementById('geopoliticalLoading');
-            const geopoliticalError = document.getElementById('geopoliticalError');
-
-            analyzeImpactBtn.addEventListener('click', async () => {
-                const event = geopoliticalEventInput.value.trim();
-                if (!event) {
-                    geopoliticalImpactOutput.innerHTML = 'Por favor, introduce un evento o política geopolítica para analizar.';
-                    geopoliticalImpactOutput.classList.remove('italic', 'text-gray-700');
-                    geopoliticalImpactOutput.classList.add('text-red-500');
-                    return;
-                }
-
-                geopoliticalImpactOutput.innerHTML = ''; // Clear previous output
-                geopoliticalError.classList.add('hidden');
-                geopoliticalLoading.classList.remove('hidden');
-                geopoliticalImpactOutput.classList.remove('text-red-500');
-                geopoliticalImpactOutput.classList.add('italic', 'text-gray-700');
-
-                try {
-                    let chatHistory = [];
-                    const prompt = `Analiza el posible impacto del siguiente evento o política geopolítica en la industria global de semiconductores, considerando la cadena de suministro, la demanda, la inversión y la competencia: "${event}". Proporciona un resumen conciso.`;
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        geopoliticalImpactOutput.innerHTML = text;
-                        geopoliticalImpactOutput.classList.remove('italic', 'text-gray-700');
-                    } else {
-                        geopoliticalImpactOutput.innerHTML = 'No se pudo generar un análisis para este evento. Intenta con otro.';
-                        geopoliticalImpactOutput.classList.remove('italic', 'text-gray-700');
-                        geopoliticalImpactOutput.classList.add('text-red-500');
-                    }
-                } catch (error) {
-                    console.error('Error fetching geopolitical analysis:', error);
-                    geopoliticalError.classList.remove('hidden');
-                    geopoliticalImpactOutput.innerHTML = 'Ocurrió un error al obtener el análisis. Inténtalo de nuevo.';
-                    geopoliticalImpactOutput.classList.remove('italic', 'text-gray-700');
-                    geopoliticalImpactOutput.classList.add('text-red-500');
-                } finally {
-                    geopoliticalLoading.classList.add('hidden');
-                }
-            });
+            
         });
     </script>
 </body>
