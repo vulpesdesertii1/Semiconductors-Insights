@@ -572,6 +572,54 @@ automotive: {
     { name: 'Skyworks Solutions', description: 'RF components and connectivity solutions for mobile and IoT markets.' }
   ]
 }
+
+defense: {
+  title: 'Defense, Electronic Warfare, Cybersecurity & Ballistics',
+  textBlocks: [
+    'Modern defense is silicon-driven: sensing, jamming, encryption, guidance, and autonomous decision loops.',
+    'Electronic Warfare (EW) needs ultra-linear RF front ends, wideband ADC/DACs, and fast, reconfigurable DSP.',
+    'Cyber defense moves into hardware: secure boot, root-of-trust, crypto accelerators, and memory isolation.',
+    'Ballistics and guidance rely on rad-hard computing, precision timing, and high-G inertial MEMS.',
+    'Supply chain resilience and ITAR/earmarked rad-hard flows define who can ship and where.'
+  ],
+  keyTakeaways: [
+    { label: 'RF dominance', text: 'GaN/SiC power, low-noise receivers, and agile spectrum control for EW.' },
+    { label: 'Hardware security', text: 'Roots of trust, PUFs, and inline crypto to protect mission data.' },
+    { label: 'Ruggedization', text: 'Radiation tolerance, extended temp ranges, and shock survivability.' },
+    { label: 'Latency matters', text: 'Decision loops push compute to the edge with FPGAs and DSPs.' }
+  ],
+  leaders: [
+    { name: 'Analog Devices (ADI)', description: 'Wideband RF, high-speed converters, and EW signal chains.' },
+    { name: 'Qorvo', description: 'GaN RF power and front-end modules for radar and jamming.' },
+    { name: 'Microchip (Microsemi)', description: 'Rad-tolerant FPGAs, secure elements, timing and power for defense.' },
+    { name: 'NXP', description: 'Secure MCUs/MPUs with EdgeLock, hardware root-of-trust, and automotive-grade ruggedness.' },
+    { name: 'Rambus', description: 'Silicon IP for cryptography, key management, and memory protection.' }
+  ]
+},
+
+aerospace: {
+  title: 'Air & Space Systems',
+  textBlocks: [
+    'Avionics and spacecraft need deterministic, fault-tolerant silicon with long lifecycles and traceability.',
+    'Radiation effects (SEU/SEL/TID) drive rad-hard processes, ECC memory, and redundancy at every layer.',
+    'Satcom and Earth observation push high-linearity RF, beamforming, and optical links.',
+    'On-orbit AI requires efficient accelerators, non-volatile memory, and reliable interconnects.',
+    'Thermal, power budgeting, and packaging (hermetic, ceramic) are mission-critical design constraints.'
+  ],
+  keyTakeaways: [
+    { label: 'Rad-hard design', text: 'Process, layout, and architecture to mitigate single-event effects.' },
+    { label: 'Determinism', text: 'DO-178/DO-254 processes and time-aware networks for avionics.' },
+    { label: 'Space comms', text: 'High-frequency RF and optical interconnects for downlink/uplink capacity.' },
+    { label: 'Edge AI in orbit', text: 'Low-power compute with error mitigation and graceful degradation.' }
+  ],
+  leaders: [
+    { name: 'AMD (Xilinx)', description: 'Radiation-tolerant FPGAs and adaptive SoCs for space and avionics.' },
+    { name: 'Microchip (Microsemi)', description: 'RT FPGAs, rad-tolerant power, and space-grade timing.' },
+    { name: 'Teledyne e2v', description: 'Space-qualified ADC/DACs and high-reliability processors.' },
+    { name: 'Analog Devices (ADI)', description: 'Precision RF, beamforming ICs, and inertial sensors for aerospace.' },
+    { name: 'Qorvo', description: 'GaN power amps and RF front-ends for satcom payloads.' }
+  ]
+}
 };
             let companyFinancialsChartInstance;
             
