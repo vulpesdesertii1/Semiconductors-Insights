@@ -500,10 +500,31 @@
     ]
   },
     automotive: {
-      title: 'Automotive & Electric Vehicles',
-      text: 'Modern vehicles are becoming data centers on wheels...',
-      leaders: 'NXP, Infineon, Renesas, Texas Instruments, Bosch'
-    },
+    title: 'Automotive & Electric Vehicles',
+    textBlocks: [
+      'Cars are becoming data centers on wheels — software-defined, sensor-rich, always connected.',
+      'Power electronics is the backbone of EVs: efficient conversion, battery management, and thermal control.',
+      'Advanced driver assistance (ADAS) is pushing real-time compute at the edge: perception, fusion, planning.',
+      'In-vehicle networks (CAN/LIN/FlexRay/Ethernet) are evolving to zonal architectures and higher bandwidth.',
+      'Safety and security are non-negotiable: ISO 26262, ASIL levels, secure boot, hardware isolation.',
+      'From silicon choices (Si, SiC, GaN) to packaging and cooling, efficiency now defines range and cost.',
+      'The stack is converging: compute, sensing, connectivity, and power — tightly integrated on common platforms.'
+    ],
+    keyTakeaways: [
+      { label: 'Electrification', text: 'SiC/GaN power stages, high-voltage BMS, and efficient inverters drive range.' },
+      { label: 'Compute at the edge', text: 'SoCs/MCUs for real-time ADAS and domain/zonal control units.' },
+      { label: 'Networking', text: 'Automotive Ethernet + TSN replacing legacy buses in high-bandwidth domains.' },
+      { label: 'Safety & security', text: 'ASIL compliance, over-the-air updates, and silicon-level hardening.' }
+    ],
+    leaders: [
+      { name: 'NXP', description: 'MCUs/MPUs para domain & zonal controllers, redes (CAN/LIN/Ethernet) y seguridad automotriz.' },
+      { name: 'Infineon', description: 'Potencia para EV (IGBT/SiC), drivers, sensores y soluciones ASIL para inversores y OBC.' },
+      { name: 'Renesas', description: 'MCUs/SoCs para ADAS y powertrain, A/D de precisión y soluciones para control motor.' },
+      { name: 'Texas Instruments', description: 'Analógico y potencia: PMICs, BMS, drivers, aislación y medición de alta precisión.' },
+      { name: 'Bosch', description: 'Tier-1 con semiconductores propios: radar, MEMS, sensores y sistemas de asistencia.' }
+    ]
+  }
+};
     cloud: {
       title: 'Cloud Computing & Data Centers',
       text: 'The expansion of cloud services...',
