@@ -77,3 +77,53 @@ section {
     height: 400px;
   }
 }
+
+/* ===== Netflix-style carousel ===== */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-behavior: smooth;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none; /* Oculta la barra de scroll */
+}
+
+.carousel-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 280px;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover {
+  transform: scale(1.05);
+}
+
+.carousel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.carousel-title {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  z-index: 1;
+}
+
