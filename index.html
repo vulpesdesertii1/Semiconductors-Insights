@@ -577,7 +577,7 @@ automotive: {
     { name: 'Qorvo', description: 'RF front-end modules and filters for mobile devices and base stations.' },
     { name: 'Skyworks Solutions', description: 'RF components and connectivity solutions for mobile and IoT markets.' }
   ]
-}
+},
 
 defense: {
   title: 'Defense, Electronic Warfare, Cybersecurity & Ballistics',
@@ -627,6 +627,117 @@ aerospace: {
   ]
 }
 };
+
+const sectorImages = {
+  ai: 'img/ai-ml.jpg',
+  automotive: 'img/auto-ev.jpg',
+  cloud: 'img/cloud.jpg',
+  telecom: 'img/telecom.jpg',
+  defense: 'img/defense.jpg',
+  aerospace: 'img/space.jpg'
+  // cuando añadas más sectores, añade su imagen aquí
+};
+
+// ===== Netflix-style carousel: render + modal =====
+function renderCarousel() {
+  const wrap = document.getElementById('sector-carousel');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  Object.entries(sectorContentData).forEach(([key, data]) => {
+    const img = (window.sectorImages && sectorImages[key]) || 'img/placeholder.jpg';
+    const tagline = data.tagline || (Array.isArray(data.textBlocks) ? data.textBlocks[0] : (data.text || ''));
+
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'snap relative w-80 h-48 flex-shrink-0 rounded-xl overflow-hidden card-shadow group';
+    card.setAttribute('data-sector', key);
+    card.innerHTML = `
+      <img src="${img}" alt="${data.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+      <div class="absolute inset-0 card-gradient"></div>
+      <div class="absolute bottom-4 left-4 right-4 text-left text-white">
+        <h3 class="text-xl font-bold drop-shadow">${data.title}</h3>
+        <p class="text-sm opacity-90 mt-1 line-clamp-2">${tagline}</p>
+      </div>
+    `;
+    card.addEventListener('click', () => openModal(key));
+    wrap.appendChild(card);
+  });
+}
+
+function openModal(key) {
+  const data = sectorContentData[key];
+  if (!data) return;
+
+  // Imagen cabecera
+  const hero = document.getElementById('modal-hero');
+  if (hero) {
+    const img = (window.sectorImages && sectorImages[key]) || 'img/placeholder.jpg';
+    hero.style.backgroundImage = `url('${img}')`;
+  }
+
+  // Título
+  const titleEl = document.getElementById('modal-title');
+  if (titleEl) titleEl.textContent = data.title;
+
+  // Overview
+  const ov = document.getElementById('modal-overview');
+  if (ov) {
+    const paragraphs = Array.isArray(data.textBlocks)
+      ? data.textBlocks
+      : (typeof data.text === 'string' ? data.text.split(/\n\s*\n/) : []);
+    ov.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+  }
+
+  // At a glance
+  const glance = document.getElementById('modal-glance');
+  const glanceList = document.getElementById('modal-glance-list');
+  if (glance && glanceList) {
+    if (Array.isArray(data.keyTakeaways) && data.keyTakeaways.length) {
+      glance.classList.remove('hidden');
+      glanceList.innerHTML = data.keyTakeaways.map(k => `
+        <li><span class="font-semibold">${k.label}:</span> ${k.text}</li>
+      `).join('');
+    } else {
+      glance.classList.add('hidden');
+      glanceList.innerHTML = '';
+    }
+  }
+
+  // Key Players
+  const playersList = document.getElementById('modal-players-list');
+  if (playersList) {
+    playersList.innerHTML = (Array.isArray(data.leaders) ? data.leaders : [])
+      .map(l => `<li><strong>${l.name}</strong>${l.description ? `: ${l.description}` : ''}</li>`)
+      .join('');
+  }
+
+  // Mostrar modal
+  const modal = document.getElementById('sector-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById('sector-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
+
+// Eventos de cierre modal (click en backdrop, botón X, tecla ESC)
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'modal-backdrop') closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+const closeBtn = document.getElementById('modal-close');
+if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
             let companyFinancialsChartInstance;
             
             function renderFinancialsChart(metric) {
@@ -791,6 +902,7 @@ aerospace: {
 
             renderFinancialsChart('marketCap');
             renderSectorContent('ai');
+            renderCarousel();
 
             
         });
