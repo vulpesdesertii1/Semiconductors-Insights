@@ -672,12 +672,13 @@ function openModal(key) {
   const data = sectorContentData[key];
   if (!data) return;
 
-  // Imagen cabecera
-  const hero = document.getElementById('modal-hero');
-  if (hero) {
-    const img = (window.sectorImages && sectorImages[key]) || 'img/placeholder.jpg';
-    hero.style.backgroundImage = `url('${img}')`;
-  }
+  // Imagen cabecera dentro del contenido
+const heroImg = document.getElementById('modal-hero-img');
+if (heroImg) {
+  const img = (window.sectorImages && sectorImages[key]) || './ai.jpg';
+  heroImg.src = `${img}?v=${Date.now()}`; // evita caché
+}
+
 
   // Título
   const titleEl = document.getElementById('modal-title');
