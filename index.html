@@ -340,51 +340,19 @@
         </section>
 
         <section id="global" class="py-16">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-3xl font-bold text-main">Global Ecosystem</h2>
-                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">The semiconductor industry is a complex web of global interdependence. Discover the countries specializing in key areas of the value chain, the critical raw materials that fuel production, and the geopolitical tensions that define this strategic landscape.</p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                <div class="lg:col-span-2 bg-secondary rounded-lg shadow-lg p-6 fade-in">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Geographic Specialization</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-                        <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">USA 🇺🇸</h4>
-                            <p class="text-sm text-gray-600">Chip Design & IP</p>
-                        </div>
-                        <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">Taiwan 🇹🇼</h4>
-                            <p class="text-sm text-gray-600">Advanced Foundry</p>
-                        </div>
-                        <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">South Korea 🇰🇷</h4>
-                            <p class="text-sm text-gray-600">Memory (DRAM/NAND)</p>
-                        </div>
-                        <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">Japan 🇯🇵</h4>
-                            <p class="text-sm text-gray-600">Materials & Equipment</p>
-                        </div>
-                        <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">Netherlands 🇳🇱</h4>
-                            <p class="text-sm text-gray-600">EUV Lithography</p>
-                        </div>
-                         <div class="border rounded-lg p-4 bg-accent-light">
-                            <h4 class="font-bold">China 🇨🇳</h4>
-                            <p class="text-sm text-gray-600">Assembly & Raw Materials</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4 text-center">This specialization creates hyper-efficient but vulnerable supply chains, leading to global initiatives like the CHIPS Act (US) and EU Chips Act to diversify manufacturing.</p>
-                </div>
-                <div class="bg-secondary rounded-lg shadow-lg p-6 fade-in">
-                    <h3 class="text-xl font-semibold mb-4 text-center">Critical Raw Material Control</h3>
-                    <div class="chart-container" style="height: 250px; max-height: 250px;">
-                        <canvas id="materialsChart"></canvas>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4 text-center">China's dominance over key materials like Gallium and Germanium gives it significant geopolitical leverage.</p>
-                </div>
-            </div>
-        </section>
+  <div class="text-center mb-12 fade-in">
+    <h2 class="text-3xl font-bold text-main">Global Ecosystem</h2>
+    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+      Explore the countries leading the semiconductor industry. Click a highlighted country to see its main sector, leaders and recent advances.
+    </p>
+  </div>
 
+  <!-- Mapa interactivo -->
+  <div id="geoMap" class="bg-secondary rounded-lg shadow-lg fade-in mx-auto"
+       style="height:520px; max-width:1100px;"></div>
+</section>
+
+        
     </main>
 
     <footer class="bg-secondary border-t border-gray-200">
@@ -470,15 +438,7 @@
                 }]
             };
 
-            const materialsData = {
-                labels: ['Gallium', 'Germanium', 'Rest of World'],
-                datasets: [{
-                    label: 'China\'s Control %',
-                    data: [78, 60, 22],
-                    backgroundColor: ['#4A908A', '#C0A062', '#E5E7EB'],
-                    hoverOffset: 4
-                }]
-            };
+            
             
   const sectorContentData = {
     ai: {
@@ -843,19 +803,7 @@ if (closeBtn) closeBtn.addEventListener('click', closeModal);
             const marketGrowthCtx = document.getElementById('marketGrowthChart').getContext('2d');
             new Chart(marketGrowthCtx, { type: 'line', data: marketGrowthData, options: chartStyles });
 
-            const materialsCtx = document.getElementById('materialsChart').getContext('2d');
-            new Chart(materialsCtx, {
-                type: 'doughnut',
-                data: materialsData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top', labels: { color: '#374151' } },
-                        tooltip: { callbacks: { label: (context) => `${context.label}: ${context.raw}%` } }
-                    }
-                }
-            });
+            
             
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -887,6 +835,75 @@ if (closeBtn) closeBtn.addEventListener('click', closeModal);
             }, { rootMargin: "-100px 0px -50% 0px" });
 
             sections.forEach(section => observer.observe(section));
+
+            // ===== World Map (ECharts) =====
+const countryData = {
+  USA: { sector: 'Chip Design & IP', leaders: ['NVIDIA','Qualcomm','Intel'], advances: 'AI accelerators, EDA, advanced packaging.' },
+  TWN: { sector: 'Advanced Foundry', leaders: ['TSMC','UMC'], advances: '3–2 nm HVM, CoWoS, SoIC.' },
+  KOR: { sector: 'Memory (DRAM/NAND)', leaders: ['Samsung','SK hynix'], advances: 'HBM3E, 3D NAND > 200L.' },
+  JPN: { sector: 'Materials & Equipment', leaders: ['Tokyo Electron','JSR','Shin-Etsu'], advances: 'Chemicals, photoresist, wafer.' },
+  NLD: { sector: 'EUV Lithography', leaders: ['ASML'], advances: 'High-NA EUV, pellicles, metrology.' },
+  CHN: { sector: 'Assembly & Raw Materials', leaders: ['SMIC','JCET'], advances: 'OSAT scale, domestic equipment push.' }
+};
+
+(function initGeo(){
+  const el = document.getElementById('geoMap');
+  if (!el || !window.echarts) return;
+
+  const chart = echarts.init(el);
+  chart.setOption({
+    backgroundColor: '#ffffff',
+    tooltip: { trigger: 'item' },
+    visualMap: { show:false, min:0, max:1, inRange:{ color:['#E8EEF9','#032CA6'] } },
+    series: [{
+      type: 'map',
+      map: 'world',
+      roam: true,
+      itemStyle: { borderColor: '#d1d5db', areaColor: '#f3f4f6' },
+      emphasis: { itemStyle: { areaColor: '#1F64BF' } },
+      data: [
+        { name:'United States', value:1 },
+        { name:'Taiwan', value:1 },
+        { name:'South Korea', value:1 },
+        { name:'Japan', value:1 },
+        { name:'Netherlands', value:1 },
+        { name:'China', value:1 }
+      ]
+    }]
+  });
+
+  chart.on('click', params => {
+    const iso = ({
+      'United States':'USA', 'Taiwan':'TWN', 'South Korea':'KOR',
+      'Japan':'JPN', 'Netherlands':'NLD', 'China':'CHN'
+    })[params.name];
+    const info = countryData[iso];
+    if (!info) return;
+
+    // Reusar tu modal existente
+    const title = document.getElementById('modal-title');
+    const overview = document.getElementById('modal-overview');
+    const list = document.getElementById('modal-players-list');
+
+    if (title) title.textContent = `${params.name} — ${info.sector}`;
+    if (overview) {
+      overview.innerHTML = `
+        <p class="mb-2"><strong>Leaders:</strong> ${info.leaders.join(', ')}</p>
+        <p><strong>Recent advances:</strong> ${info.advances}</p>
+      `;
+    }
+    if (list) list.innerHTML = info.leaders.map(x => `<li>${x}</li>`).join('');
+
+    document.getElementById('modal-glance')?.classList.add('hidden');
+    document.getElementById('sector-modal')?.classList.remove('hidden');
+    document.getElementById('sector-modal')?.setAttribute('aria-hidden','false');
+  });
+
+  window.addEventListener('resize', () => chart.resize());
+})();
+
+
+            
 
             renderFinancialsChart('marketCap');
             renderCarousel();
