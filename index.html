@@ -653,13 +653,16 @@ function renderCarousel() {
     card.className = 'snap relative w-80 h-48 flex-shrink-0 rounded-xl overflow-hidden card-shadow group';
     card.setAttribute('data-sector', key);
     card.innerHTML = `
-      <img src="${img}" alt="${data.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-      <div class="absolute inset-0 card-gradient"></div>
-      <div class="absolute bottom-4 left-4 right-4 text-left text-white">
-        <h3 class="text-xl font-bold drop-shadow">${data.title}</h3>
-        <p class="text-sm opacity-90 mt-1 line-clamp-2">${tagline}</p>
-      </div>
-    `;
+  <img src="${img}?v=${Date.now()}" alt="${data.title}" loading="lazy" width="640" height="384"
+       onerror="this.onerror=null; this.src='./ai.jpg';"
+       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+  <div class="absolute inset-0 card-gradient"></div>
+  <div class="absolute bottom-4 left-4 right-4 text-left text-white">
+    <h3 class="text-xl font-bold drop-shadow">${data.title}</h3>
+    <p class="text-sm opacity-90 mt-1 line-clamp-2">${tagline}</p>
+  </div>
+`;
+
     card.addEventListener('click', () => openModal(key));
     wrap.appendChild(card);
   });
