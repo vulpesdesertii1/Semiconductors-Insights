@@ -42,7 +42,9 @@ jobs:
           python scraper.py --config sites.yaml --out data/scraped.csv --max-per-site $MAX --with-text
 
       - name: Commit CSV if changed
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore(scraper): update scraped.csv"
-          file_pattern: scraper/data/scraped.csv
+  uses: stefanzweifel/git-auto-commit-action@v5
+  with:
+    commit_message: "chore(scraper): update scraped.csv"
+    file_pattern: scraper/data/scraped.csv
+    branch: main
+    pull_strategy: REBASE   # <— clave para evitar el non-fast-forward
