@@ -8,7 +8,7 @@ st.set_page_config(page_title="Semiconductors Insights", layout="wide")
 st.title("🧠 Semiconductors Insights — Blog interactivo")
 
 # Ruta al CSV
-DATA_PATH = os.environ.get("SI_DATA", "../scraper/data/scraped.csv")
+DATA_PATH = os.environ.get("SI_DATA", "Semiconductors-Insights/scraper/data/scraped.csv")
 
 @st.cache_data
 def load_data(path: str):
