@@ -1,1 +1,11 @@
-
+sites:
+  - name: Example Semi News
+    base_url: "https://example.com"
+    start_urls:
+      - "https://example.com/semiconductors"
+    article_link_selector: "a.article-link"
+    title_selector: "h1"
+    date_selector: "time[datetime], .date, .post-date"
+    author_selector: ".author, .byline a, [rel='author']"
+    summary_selector: "meta[name='description']::attr(content), p.lead, .summary"
+    article_text_selector: "article, .post-content, .entry-content"
