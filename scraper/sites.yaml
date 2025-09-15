@@ -1,11 +1,23 @@
 sites:
-  - name: Example Semi News
-    base_url: "https://example.com"
+  - name: Semiconductor Engineering
+    base_url: "https://semiengineering.com"
     start_urls:
-      - "https://example.com/semiconductors"
-    article_link_selector: "a.article-link"
-    title_selector: "h1"
-    date_selector: "time[datetime], .date, .post-date"
-    author_selector: ".author, .byline a, [rel='author']"
-    summary_selector: "meta[name='description']::attr(content), p.lead, .summary"
-    article_text_selector: "article, .post-content, .entry-content"
+      - "https://semiengineering.com"
+      - "https://semiengineering.com/category/topics/manufacturing/"
+    article_link_selector: "h2.entry-title a, h3.entry-title a, .entry-title a"
+    title_selector: "h1.entry-title, h1"
+    date_selector: "time[datetime], .entry-date, .post-date"
+    author_selector: ".byline a, .author a, .byline"
+    summary_selector: "meta[name='description']::attr(content), .entry-content p"
+    article_text_selector: "article, .entry-content"
+
+  - name: Tom's Hardware (Semiconductor tag)
+    base_url: "https://www.tomshardware.com"
+    start_urls:
+      - "https://www.tomshardware.com/tags/semiconductor"
+    article_link_selector: "a.listingResult, a[href*='/news/'], a[href*='/features/']"
+    title_selector: "h1.headline, h1.article-name, h1"
+    date_selector: "time[datetime]"
+    author_selector: ".by-author a, .author-name a, .byline a, .author"
+    summary_selector: "meta[name='description']::attr(content), p.lead, .abstract p"
+    article_text_selector: "article, .article-body, .content"
