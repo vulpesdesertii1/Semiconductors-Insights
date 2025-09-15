@@ -1,1 +1,4 @@
+source,title,url,date,author,summary,text,fetched_at
+Example Semi News,TSMC lanza nuevo nodo,https://example.com/tsmc,2025-09-10,Jane Doe,"Roadmap de TSMC 2nm","Texto completo del artículo...",2025-09-15T12:00:00Z
+Another Source,Intel anuncia fábrica en Europa,https://example.com/intel,2025-09-11,John Smith,"Intel invertirá en nuevas instalaciones","Detalles del anuncio...",2025-09-15T12:30:00Z
 
