@@ -10,6 +10,7 @@ Scraper genérico con BeautifulSoup.
 Uso:
   python scraper.py --config sites.yaml --out data/scraped.csv --max-per-site 20 --with-text
 """
+import os
 import argparse, time, random
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse
@@ -47,7 +48,8 @@ def robots_for(base):
     try:
         p = urlparse(base); robots = f"{p.scheme}://{p.netloc}/robots.txt"
         rp = robotparser.RobotFileParser(); rp.set_url(robots); rp.read(); return rp
-    except: return None
+    except:
+        return None
 
 def extract_first(soup, selector):
     if not selector: return ""
@@ -67,22 +69,28 @@ def parse_list(html, link_sel, base):
             href = a.get("href") or a.get("data-href") or ""
             if href: links.add(urljoin(base, href))
     else:
+        # Fallback: cualquier <a> del mismo dominio
         for a in soup.find_all("a", href=True):
             href = a["href"]
             if href.startswith("/") or urlparse(href).netloc == urlparse(base).netloc:
                 links.add(urljoin(base, href))
-    # normaliza (quita #fragment)
-    out = []
-    seen = set()
-    for u in links:
-        u2 = urlparse(u)._replace(fragment="").geturl()
-        if u2 not in seen:
-            seen.add(u2); out.append(u2)
+    return list(links)
+
+def normalize_urls(urls):
+    seen = set(); out = []
+    for u in urls:
+        if not u: continue
+        normalized = urlparse(u)._replace(fragment="").geturl()
+        if normalized not in seen:
+            seen.add(normalized); out.append(normalized)
     return out
 
 def extract_article(s, url, cfg, rp=None, with_text=False):
-    try: r = polite_get(s, url, rp=rp)
-    except: return None
+    try:
+        r = polite_get(s, url, rp=rp)
+    except Exception as e:
+        print(f"[WARN] Artículo KO {url}: {e}")
+        return None
     soup = BeautifulSoup(r.text, "lxml")
     title = extract_first(soup, cfg.get("title_selector","h1"))
     date = extract_first(soup, cfg.get("date_selector"))
@@ -110,16 +118,22 @@ def main():
     ap.add_argument("--with-text", action="store_true")
     args = ap.parse_args()
 
+    # Carga config y canta lo que hay
     with open(args.config, "r", encoding="utf-8") as f:
-        sites = (yaml.safe_load(f) or {}).get("sites", [])
+        cfg = yaml.safe_load(f) or {}
+    sites = cfg.get("sites", [])
+    print(f"[INFO] Cargados {len(sites)} sitios desde {args.config}")
+    for s_ in sites:
+        print(f"   - {s_.get('name')} ({s_.get('base_url')})")
 
-    # carga CSV previo para evitar duplicados por URL
+    # Carga CSV previo (para evitar duplicados por URL)
     existing = set(); rows = []
     try:
         df_old = pd.read_csv(args.out)
         existing = set(df_old["url"].dropna().tolist())
         rows.extend(df_old.to_dict("records"))
-    except: pass
+    except Exception:
+        pass
 
     s = requests.Session()
 
@@ -131,19 +145,36 @@ def main():
         for su in site.get("start_urls", []):
             try:
                 r = polite_get(s, su, rp=rp)
-                all_links += parse_list(r.text, site.get("article_link_selector"), base or su)
+                links_sel = parse_list(r.text, site.get("article_link_selector"), base or su)
+                print(f"[INFO] Listado {su} → {len(links_sel)} links por selector")
+                if not links_sel:
+                    # Fallback si selector no devuelve nada
+                    links_fb = parse_list(r.text, "", base or su)
+                    print(f"[INFO] Fallback {su} → {len(links_fb)} links")
+                    links_sel = links_fb
+                all_links += links_sel
             except Exception as e:
                 print(f"[WARN] listado {su}: {e}")
 
-        links = all_links[: args.max_per_site]
-        print(f"[INFO] {site.get('name', base)} → {len(links)} candidatos")
+        article_urls = normalize_urls(all_links)
+        random.shuffle(article_urls)  # evita siempre los mismos primeros
+        article_urls = article_urls[: args.max_per_site]
 
-        for url in links:
-            if url in existing: continue
+        print(f"[INFO] {site.get('name', base)} → {len(article_urls)} candidatos (muestra)")
+        for u in article_urls[:5]:
+            print("   ", u)
+
+        new_count = 0
+        for url in article_urls:
+            if url in existing:
+                continue
             art = extract_article(s, url, site, rp=rp, with_text=args.with_text)
-            if not art: continue
-            rows.append(art); existing.add(url)
+            if not art:
+                continue
+            rows.append(art); existing.add(url); new_count += 1
             print(f"[OK] {art['title'][:80]}")
+
+        print(f"[INFO] Nuevos añadidos de {site.get('name')}: {new_count}")
 
     if rows:
         df = pd.DataFrame(rows).sort_values("fetched_at", ascending=False)
@@ -154,7 +185,5 @@ def main():
         print("[DONE] No hay nuevas filas.")
 
 if __name__ == "__main__":
-    import os
     os.makedirs("data", exist_ok=True)
     main()
-
