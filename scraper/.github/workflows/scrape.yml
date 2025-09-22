@@ -1,44 +1,22 @@
-# scraper/parse_mck_local.py
-from pathlib import Path
-import csv, re
-from bs4 import BeautifulSoup
-
-INPUT = Path(__file__).resolve().parents[1] / "inputs" / "mck-insights.html"
-OUT   = Path(__file__).resolve().parents[1] / "data" / "mck_insights.csv"
-
-def parse_local_html(path: Path):
-    html = path.read_text(encoding="utf-8", errors="ignore")
-    soup = BeautifulSoup(html, "html.parser")
-
-    # 1) Saca todos los <a> cuyo href apunte a /industries/semiconductors/our-insights/...
-    links = []
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if re.search(r"/industries/semiconductors/our-insights/", href):
-            title = a.get_text(strip=True)
-            # normaliza href relativo -> absoluto
-            if href.startswith("/"):
-                href = "https://www.mckinsey.com" + href
-            if title:
-                links.append((title, href))
-
-    # 2) Dedup por URL, mantén el primer título no vacío
-    seen, rows = set(), []
-    for title, url in links:
-        if url not in seen:
-            seen.add(url)
-            rows.append({"title": title, "url": url})
-
-    return rows
-
-def main():
-    rows = parse_local_html(INPUT)
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUT.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["title","url"])
-        w.writeheader()
-        w.writerows(rows)
-    print(f"[OK] {OUT} ({len(rows)} items)")
-
-if __name__ == "__main__":
-    main()
+# scraper/rss_to_csv.py
+import csv, feedparser
+FEEDS = [
+    "https://semiengineering.com/tag/rss/",
+    "https://spectrum.ieee.org/feeds/topic/semiconductors.rss",
+    "https://nvidianews.nvidia.com/rss",
+]
+rows = []
+for url in FEEDS:
+    d = feedparser.parse(url)
+    src = d.feed.get("title","")
+    for e in d.entries:
+        rows.append({
+            "title": e.get("title","").strip(),
+            "url": e.get("link",""),
+            "published": e.get("published",""),
+            "source": src
+        })
+with open("data/news.csv","w",newline="",encoding="utf-8") as f:
+    w = csv.DictWriter(f, fieldnames=["title","url","published","source"])
+    w.writeheader(); w.writerows(rows)
+print(f"OK {len(rows)}")
